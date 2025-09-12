@@ -1,0 +1,431 @@
+﻿/* Reproductor fijo modernizado (pill + glass + neón) */
+:root {
+  --accent: #ff7a00; /* Neon orange initial */
+  --glass-bg: rgba(24, 24, 24, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-dim: #cfcfcf;
+  --player-h: 88px; /* altura aproximada del reproductor */
+  /* Paleta para degradados premium */
+  --grad-1: #ff7a00; /* naranja inicial */
+  --grad-2: #ff00f5; /* magenta neón */
+  --grad-3: #00e5ff; /* cian neón */
+  --grad-4: #b6ff00; /* chartreuse neón */
+}
+
+.fixed-player {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1100; /* por encima del header fijo */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+#header {
+  position: relative;
+  margin-top: var(--player-h); /* empuja el header justo debajo del reproductor */
+  top: 0; /* sin desplazamiento adicional */
+  width: 100%;
+  z-index: 1; /* por encima del fondo, por debajo del reproductor */
+  background: rgba(21, 5, 23, 0.25);
+  transition: margin-top 0.3s ease;
+}
+
+/* Cuando el tema vuelva el header fijo al hacer scroll, empújalo debajo del reproductor */
+#header.fixed-top,
+#header.header-scrolled {
+  position: fixed !important;
+  top: var(--player-h) !important; /* queda justo debajo del reproductor */
+  margin-top: 0 !important;
+  z-index: 1000 !important; /* menor que el reproductor (1100) */
+  width: 100%;
+}
+
+#hero {
+  margin-top: -100px; /* Ajusta este valor según la altura total del reproductor y el header */
+}
+
+.radio-player {
+  display: grid;
+  grid-template-columns: auto minmax(140px, 1fr) auto; /* imagen | texto | logo */
+  align-items: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border-radius: 28px; /* menos redondeado que pill completo */
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  column-gap: 18px;
+  position: relative; /* para centrar controles */
+}
+
+/* (Eliminado overlay para que el fondo no cambie de color) */
+
+/* Contenedor central: play + ecualizador, centrado absoluto */
+.center-controls {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 2;
+}
+
+.center-controls .waveform {
+  width: auto; /* evita ocupar todo el ancho */
+}
+
+/* Alinear logo al extremo derecho */
+.radio-player .radio-logo {
+  justify-self: end;
+}
+
+.radio-player .radio-logo img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.radio-player .radio-text {
+  text-align: left;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.radio-player .radio-text h2 {
+  font-size: 1.15em;
+  margin: 0;
+  color: #ffffff !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+.radio-player .radio-text h4 {
+  font-size: 0.9em;
+  color: var(--text-dim) !important;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+.radio-player .radio-image img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35), 0 0 12px rgba(255,122,0,.35), inset 0 0 20px rgba(255,122,0,.20);
+}
+
+.radio-player .play-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(120% 140% at 30% 30%, #1a1a1a 0%, #0f0f0f 60%);
+  color: #111;
+  border-radius: 9999px;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  position: relative;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35), 0 0 12px rgba(255,122,0,.35), inset 0 0 20px rgba(255,122,0,.20);
+  animation: colorCycle 16s linear infinite; /* sólo el botón cambia de color */
+}
+
+.radio-player .play-button:hover {
+  transform: translateY(-1px);
+}
+.radio-player .play-button:active {
+  transform: translateY(0);
+}
+
+/* Anillo degradado premium giratorio (pseudo-elemento) */
+.radio-player .play-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px; /* grosor del anillo */
+  border-radius: inherit;
+  background: conic-gradient(from 0deg,
+    var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4), var(--grad-1)
+  );
+  /* deja visible solo el borde */
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  filter: blur(0.6px) saturate(140%);
+  z-index: 0;
+  animation: spin 12s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Anula cualquier animación previa del botón (evita hue-rotate global) */
+.radio-player .play-button { animation: none; }
+
+/* Activa el giro del anillo solo al reproducir */
+.radio-player.playing .play-button::before { animation-play-state: running; }
+
+.radio-player .play-button .btn-play,
+.radio-player .play-button .btn-pause {
+  border: none;
+  background: none;
+  color: #111 !important;
+  font-size: 1.3em;
+  position: absolute;
+}
+
+.radio-player .play-button .btn-pause.hide,
+.radio-player .play-button .btn-play.hide {
+  display: none;
+}
+
+/* Control de volumen (se mantiene oculto por defecto) */
+.radio-player .volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.radio-player .volume-control.hide {
+  visibility: hidden; /* Oculta visualmente */
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+}
+
+.radio-player .volume-control input[type="range"] {
+  width: 150px;
+  appearance: none;
+  height: 5px;
+  background: linear-gradient(to right, var(--accent) 50%, #d7dbdd 50%);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.radio-player .volume-control i {
+  color: var(--accent);
+  font-size: 1.5em;
+  width: 30px;
+  text-align: center;
+}
+
+/* Waveform animado */
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  width: 100%;
+  opacity: 0.95;
+  animation: colorCycle 16s linear infinite; /* sólo el ecualizador cambia de color */
+}
+
+.waveform span {
+  display: block;
+  width: 4px;
+  height: 8px;
+  background-image: linear-gradient(135deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
+  background-size: 300% 300%;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255, 122, 0, 0.45);
+  animation: equalize 1.2s linear infinite, gradientShift 8s ease-in-out infinite alternate;
+  animation-play-state: paused;
+  transform-origin: center bottom;
+}
+
+.waveform.playing span,
+.radio-player.playing .waveform span {
+  animation-play-state: running;
+}
+
+.waveform span:nth-child(4n + 1) {
+  animation-duration: 1.05s;
+}
+.waveform span:nth-child(4n + 2) {
+  animation-duration: 1.3s;
+}
+.waveform span:nth-child(4n + 3) {
+  animation-duration: 0.9s;
+}
+.waveform span:nth-child(4n + 4) {
+  animation-duration: 1.45s;
+}
+
+@keyframes equalize {
+  0% {
+    height: 6px;
+  }
+  10% {
+    height: 18px;
+  }
+  20% {
+    height: 10px;
+  }
+  30% {
+    height: 22px;
+  }
+  40% {
+    height: 12px;
+  }
+  50% {
+    height: 28px;
+  }
+  60% {
+    height: 12px;
+  }
+  70% {
+    height: 22px;
+  }
+  80% {
+    height: 10px;
+  }
+  90% {
+    height: 18px;
+  }
+  100% {
+    height: 6px;
+  }
+}
+
+/* Degradado desplazándose para un efecto premium */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Giro suave del anillo del botón */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Ciclo de color tipo neón (rota el tono) */
+@keyframes colorCycle {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* (Eliminada animación lavaShift; no se usa) */
+
+/* Utilidad */
+.hide {
+  display: none !important;
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  :root {
+    --player-h: 84px; /* altura del reproductor en móvil */
+  }
+  #header.fixed-top,
+  #header.header-scrolled {
+    top: var(--player-h) !important;
+  }
+  .radio-player {
+    padding: 14px 16px;
+    grid-template-columns: auto 1fr auto; /* imagen | texto | botón (derecha) */
+    column-gap: 12px;
+  }
+  /* En móvil, reemplazar logo por botón de play en el extremo derecho */
+  .radio-player .radio-logo {
+    display: none;
+  }
+  .center-controls {
+    position: static;
+    left: auto;
+    transform: none;
+    justify-self: end; /* ocupa la tercera columna (derecha) */
+  }
+  .waveform {
+    display: none;
+  }
+  .radio-player .radio-text h2 {
+    font-size: 1em;
+  }
+  .radio-player .radio-text h4 {
+    font-size: 0.8em;
+  }
+  .radio-player .radio-logo img {
+    width: 52px;
+    height: 52px;
+  }
+  .radio-player .radio-image img {
+    width: 56px;
+    height: 56px;
+  }
+  .radio-player .play-button {
+    width: 52px;
+    height: 52px;
+  }
+  .radio-player .volume-control {
+    display: none;
+  }
+}
+/* === Aurora Shine: botón con brillo y EQ con glow sutil === */
+/* Overrides para mantener fondo intacto y efecto premium discreto */
+.radio-player .play-button {
+  overflow: hidden; /* recorta el brillo deslizante */
+  animation: none !important; /* evita hue-rotate previos */
+}
+
+/* Desactiva decoraciones previas del botón */
+.radio-player .play-button::before { content: none !important; }
+
+/* Brillo deslizante */
+.radio-player .play-button::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.75) 50%, transparent 60%);
+  transform: translateX(-140%) rotate(18deg);
+  mix-blend-mode: screen;
+  filter: blur(0.6px) saturate(140%);
+  pointer-events: none;
+}
+.radio-player.playing .play-button::after { animation: shine 2.6s linear infinite; }
+
+/* EQ: color fijo con pulso de brillo al reproducir */
+.waveform { animation: none !important; }
+.waveform span {
+  background: var(--accent) !important;
+  background-image: none !important;
+  box-shadow: 0 0 10px rgba(255,122,0,.40);
+}
+.radio-player.playing .waveform span {
+  animation: equalize 1.2s linear infinite, pulseGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes shine { to { transform: translateX(140%) rotate(18deg); } }
+@keyframes pulseGlow {
+  0%, 100% { filter: saturate(110%) brightness(1); box-shadow: 0 0 10px rgba(255,122,0,.40); }
+  50%      { filter: saturate(160%) brightness(1.25); box-shadow: 0 0 18px rgba(255,122,0,.65); }
+}
+
+/* Desactivar brillo deslizante anterior y aplicar pulso neon */
+.radio-player .play-button::after { content: none; }
+.radio-player.playing .play-button::after { animation: none; }
+.radio-player.playing .play-button { animation: pulseGlow 2.4s ease-in-out infinite; }
