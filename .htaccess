@@ -1,0 +1,49 @@
+# Habilitar gzip compression
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+</IfModule>
+
+# Excluir PNG y archivos de iconos de las reglas de compresión
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} \.(png|ico)$
+    RewriteRule .* - [L]
+</IfModule>
+
+# Excluir archivos específicos de Bootstrap y otros recursos necesarios para iconos
+<FilesMatch "^(bootstrap\.min\.css|otros-archivos\.css|fonts/.*\.(woff|woff2|ttf|eot|svg))$">
+    Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+
+# Habilitar browser caching
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|gif|js|css|swf)$">
+    Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+
+# Habilitar Keep-Alive
+<FilesMatch ".(css|jpg|jpeg|gif|js|ico)$">
+    Header set Connection keep-alive
+</FilesMatch>
+
+# Reducir redirects 301 
+Redirect 301 /oldpage.html http://www.performanceradio.co/newpage.html

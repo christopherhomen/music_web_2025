@@ -1,0 +1,425 @@
+/* ==========================================
+   FLOATING BUTTONS - APPLE PREMIUM DESIGN
+   ========================================== */
+
+/* === FLOATING BUTTONS BASE === */
+.floating-btn {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 0 0 4px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+.floating-btn:active {
+    transform: scale(0.95);
+}
+
+/* === WHATSAPP BUTTON === */
+.whatsapp-btn {
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #25D366 0%, #20BA5A 50%, #128C7E 100%);
+    box-shadow: 
+        0 8px 25px rgba(37, 211, 102, 0.4),
+        0 0 0 4px rgba(37, 211, 102, 0.1);
+}
+
+.whatsapp-btn:hover {
+    background: linear-gradient(135deg, #2EE56B 0%, #25D366 50%, #20BA5A 100%);
+    box-shadow: 
+        0 15px 35px rgba(37, 211, 102, 0.5),
+        0 0 0 8px rgba(37, 211, 102, 0.2);
+}
+
+/* === BACK TO TOP BUTTON === */
+.back-to-top-btn {
+    bottom: 30px;
+    right: 110px;
+    background: linear-gradient(135deg, #ff7f5d 0%, #ff6b47 50%, #ff5a3a 100%);
+    box-shadow: 
+        0 8px 25px rgba(255, 127, 93, 0.4),
+        0 0 0 4px rgba(255, 127, 93, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top-btn:hover {
+    background: linear-gradient(135deg, #ff8a6b 0%, #ff7f5d 50%, #ff6b47 100%);
+    box-shadow: 
+        0 15px 35px rgba(255, 127, 93, 0.5),
+        0 0 0 8px rgba(255, 127, 93, 0.2);
+}
+
+/* === BUTTON ICON === */
+.btn-icon {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-icon i {
+    font-size: 28px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.floating-btn:hover .btn-icon i {
+    transform: scale(1.1);
+}
+
+/* === BUTTON PULSE === */
+.btn-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+.whatsapp-btn .btn-pulse {
+    background: rgba(37, 211, 102, 0.3);
+}
+
+.back-to-top-btn .btn-pulse {
+    background: rgba(255, 127, 93, 0.3);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* === BUTTON RIPPLE === */
+.btn-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    z-index: 2;
+}
+
+.floating-btn:active .btn-ripple {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+}
+
+/* === BUTTON TOOLTIP === */
+.btn-tooltip {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    z-index: 4;
+}
+
+.btn-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid rgba(0, 0, 0, 0.9);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.floating-btn:hover .btn-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-5px);
+}
+
+/* === SPECIAL EFFECTS === */
+.floating-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.floating-btn:hover::before {
+    left: 100%;
+}
+
+/* === GLOW EFFECT === */
+.floating-btn::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.floating-btn:hover::after {
+    opacity: 1;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 991px) {
+    .floating-btn {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .btn-icon i {
+        font-size: 24px;
+    }
+    
+    .whatsapp-btn {
+        bottom: 25px;
+        right: 25px;
+    }
+    
+    .back-to-top-btn {
+        bottom: 25px;
+        right: 95px;
+    }
+    
+    .btn-tooltip {
+        right: 70px;
+        font-size: 0.85em;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .btn-icon i {
+        font-size: 20px;
+    }
+    
+    .whatsapp-btn {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .back-to-top-btn {
+        bottom: 15px;
+        right: 75px;
+    }
+    
+    .btn-tooltip {
+        right: 60px;
+        font-size: 0.8em;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 479px) {
+    .floating-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .btn-icon i {
+        font-size: 18px;
+    }
+    
+    .whatsapp-btn {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .back-to-top-btn {
+        bottom: 10px;
+        right: 65px;
+    }
+    
+    .btn-tooltip {
+        right: 60px;
+        font-size: 0.75em;
+        padding: 4px 8px;
+    }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+    .floating-btn,
+    .btn-pulse,
+    .btn-ripple,
+    .btn-tooltip,
+    .btn-icon i {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* === FOCUS STATES === */
+.floating-btn:focus {
+    outline: 2px solid #ff7f5d;
+    outline-offset: 4px;
+}
+
+/* === PRINT STYLES === */
+@media print {
+    .floating-btn {
+        display: none;
+    }
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+    .btn-tooltip {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-tooltip::after {
+        border-left-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+    .floating-btn {
+        border: 2px solid #ffffff;
+    }
+    
+    .btn-tooltip {
+        background: #000000;
+        border: 2px solid #ffffff;
+    }
+}
+
+/* === ANIMATION VARIATIONS === */
+.whatsapp-btn .btn-pulse {
+    animation: pulseWhatsApp 2s ease-in-out infinite;
+}
+
+.back-to-top-btn .btn-pulse {
+    animation: pulseBackToTop 2s ease-in-out infinite;
+}
+
+@keyframes pulseWhatsApp {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+@keyframes pulseBackToTop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* === HOVER ANIMATIONS === */
+.floating-btn:hover .btn-icon {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-3px);
+    }
+    60% {
+        transform: translateY(-2px);
+    }
+}
+
+/* === LOADING STATE === */
+.floating-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.floating-btn.loading .btn-icon i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

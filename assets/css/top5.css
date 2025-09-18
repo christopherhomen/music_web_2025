@@ -1,0 +1,757 @@
+/* ============================================================ */
+/* Top 5 - Estilo iOS 26 / Apple Music Premium */
+/* ============================================================ */
+
+/* Reset específico para sobrescribir estilos globales */
+.top5-hero .top5-hero__title,
+#top5 .title,
+.top5-hero h1,
+.top5-hero h2,
+.top5-hero h3,
+.top5-hero h4,
+.top5-hero h5,
+.top5-hero h6 {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Reset para contenedores que puedan interferir */
+.top5-hero,
+#top5,
+.top5-hero__content,
+.top5-hero__header {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+/* --- Contenedor Principal (compatible con ambas estructuras) --- */
+.top-5-container,
+.top5-hero {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 650px; /* Aumentado para que el #5 se vea perfectamente */
+    margin: 40px auto;
+    padding: 0;
+    border-radius: 24px; /* Bordes más redondeados estilo iOS 26 */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 8px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* Sombra multicapa + highlight */
+    
+    /* Estilos para la imagen de fondo del #1 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    
+    /* Transición suave para cambios de fondo */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Asegura que el contenido interno no se salga de los bordes redondeados */
+    overflow: hidden;
+    
+    /* Flexbox para alinear el contenido interno */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    /* Borde sutil estilo iOS */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --- Layout de escritorio: Top 5 en columna izquierda --- */
+@media (min-width: 992px) {
+    .top5-hero {
+        max-width: 100%; /* Ocupa todo el ancho de la columna */
+        height: 600px; /* Altura optimizada para escritorio */
+        margin: 0; /* Sin margen para alineación perfecta */
+    }
+}
+
+/* Capa de vidrio esmerilado (frosted glass) sobre el fondo */
+.top-5-container::before,
+.top5-hero__overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    
+    /* Gradiente más sofisticado para mejor legibilidad */
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.25) 30%,
+        rgba(0, 0, 0, 0.4) 70%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+    
+    /* Efecto Blur más refinado estilo iOS 26 */
+    -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(105%) contrast(110%);
+    backdrop-filter: blur(24px) saturate(180%) brightness(105%) contrast(110%);
+    
+    /* Borde sutil para el efecto de vidrio */
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Título y Lista de Canciones --- */
+/* Deben tener position:relative para aparecer por encima de la capa de vidrio */
+.title, 
+.top5-hero__title,
+#top-5-list,
+.top5-list {
+    position: relative;
+    z-index: 2;
+}
+
+.title,
+.top5-hero__title {
+    text-align: left !important;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 2.6em !important; /* Ligeramente más pequeño para mejor proporción */
+    font-weight: 700 !important; /* Peso más refinado, Apple usa 700 más que 800 */
+    margin: 20px 0 10px 30px !important; /* Margen positivo para más espacio en escritorio */
+    color: #ffffff !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    position: relative !important;
+    text-rendering: optimizeLegibility !important; /* Mejor renderizado de texto */
+    -webkit-font-smoothing: antialiased !important; /* Suavizado de fuentes */
+}
+
+/* Efecto de resplandor sutil estilo Apple */
+.title::after,
+.top5-hero__title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* --- Lista de Canciones --- */
+#top-5-list,
+.top5-list {
+    padding: 15px 30px 40px 30px !important; /* Padding superior aumentado para escritorio */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea hacia abajo como en Apple Music */
+    list-style: none !important; /* Quitar bullets de la lista */
+    margin: 0 !important;
+    gap: 10px; /* Espacio uniforme entre elementos aumentado */
+    line-height: 1 !important; /* Line-height normal */
+}
+
+/* --- Elementos Individuales de la Lista --- */
+.song-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px; /* Aumentado para mejor proporción */
+    margin-bottom: 0; /* Eliminado porque usamos gap en el contenedor */
+    border-radius: 16px; /* Más redondeado para mejor estética */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: rgba(255, 255, 255, 0.08); /* Más visible */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px) saturate(120%);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0; /* Evita que se compriman */
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.song-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Efecto hover más elegante estilo iOS */
+.song-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.2),
+        0 6px 15px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Efecto especial para el #1 */
+.song-item:first-child {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 6px 25px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.song-item:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.song-item img {
+    width: 65px; /* Aumentado para mejor proporción */
+    height: 65px;
+    border-radius: 12px; /* Más redondeado */
+    object-fit: cover;
+    margin-right: 18px; /* Aumentado */
+    box-shadow: 
+        0 6px 20px rgba(0,0,0,0.4),
+        0 3px 8px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    flex-shrink: 0; /* Evita que se compriman */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.song-item:hover img {
+    transform: scale(1.08) rotate(1deg);
+    box-shadow: 
+        0 8px 25px rgba(0,0,0,0.5),
+        0 4px 12px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0; /* Permite que el texto se corte correctamente */
+}
+
+.song-title {
+    font-weight: 700; /* Más bold para mejor contraste */
+    font-size: 1.05em; /* Ligeramente aumentado */
+    margin: 0 0 4px 0; /* Aumentado */
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 
+        0 2px 4px rgba(0,0,0,0.6),
+        0 1px 2px rgba(0,0,0,0.4);
+    letter-spacing: -0.02em; /* Mejor kerning */
+    line-height: 1.3; /* Mejor espaciado */
+}
+
+.song-artist {
+    color: rgba(255, 255, 255, 0.85); /* Más visible */
+    font-size: 0.95em; /* Ligeramente aumentado */
+    font-weight: 500; /* Más peso */
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    line-height: 1.3; /* Mejor espaciado */
+    letter-spacing: -0.01em;
+}
+
+/* Número de posición (opcional) */
+.song-item::before {
+    content: attr(data-position);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85em;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 
+        0 2px 4px rgba(0,0,0,0.6),
+        0 1px 2px rgba(0,0,0,0.4);
+    z-index: 1;
+    letter-spacing: -0.02em;
+}
+
+.song-item {
+    padding-left: 45px; /* Espacio para el número */
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+    .top-5-container,
+    .top5-hero {
+        width: 100%; /* Mismo ancho que la película en móvil */
+        height: 650px; /* Aumentado para mejor visibilidad en tablet */
+        margin: 15px auto;
+        border-radius: 20px;
+    }
+    
+    .title,
+    .top5-hero__title {
+        font-size: 2.0em; /* Más proporcionado para tablet */
+        margin: 15px 0 -25px 20px !important; /* Margen negativo más agresivo en tablet */
+        line-height: 0.8 !important; /* Line-height más cómodo */
+        font-weight: 700 !important; /* Peso consistente con escritorio */
+        text-shadow: 
+            0 3px 8px rgba(0,0,0,0.8),
+            0 1px 4px rgba(0,0,0,0.6),
+            inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    
+    #top-5-list,
+    .top5-list {
+        padding: 0 20px 35px 20px !important; /* Sin padding superior */
+        margin-top: -60px !important; /* Subido 60px más arriba para tablet */
+        gap: 7px !important; /* Espacio optimizado para tablet */
+        position: relative !important;
+        transform: translateY(-10px) !important; /* Ajuste adicional */
+    }
+    
+    .song-item {
+        padding: 10px 14px; /* Reducido para móvil */
+        margin-bottom: 0;
+    }
+    
+    .song-item img {
+        width: 50px; /* Más pequeño en móvil */
+        height: 50px;
+        margin-right: 12px;
+    }
+    
+    .song-title {
+        font-size: 0.95em; /* Ligeramente más pequeño */
+    }
+    
+    .song-artist {
+        font-size: 0.85em; /* Ligeramente más pequeño */
+    }
+}
+
+/* --- Alineación perfecta de columnas en escritorio --- */
+@media (min-width: 992px) {
+    .col-lg-6 {
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+    }
+    
+    .col-lg-6:first-child {
+        padding-right: 15px !important;
+    }
+    
+    .col-lg-6:last-child {
+        padding-left: 15px !important;
+    }
+}
+
+/* --- Layout móvil: Una sola columna --- */
+@media (max-width: 991px) {
+    .col-lg-6 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .top5-hero {
+        max-width: 900px !important;
+        margin: 40px auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-5-container,
+    .top5-hero {
+        width: 100%; /* Mismo ancho que la película en móvil */
+        height: 550px; /* Reducido para mejor proporción en móvil */
+        border-radius: 16px;
+        margin: 8px auto; /* Margen más reducido */
+    }
+    
+    .title,
+    .top5-hero__title {
+        font-size: 1.5em; /* Más proporcionado para móvil */
+        margin: 8px 0 -15px 15px !important; /* Margen negativo menos agresivo */
+        line-height: 0.9 !important; /* Line-height más cómodo */
+        font-weight: 700 !important; /* Peso consistente */
+        text-shadow: 
+            0 2px 6px rgba(0,0,0,0.8),
+            0 1px 3px rgba(0,0,0,0.6),
+            inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    
+    #top-5-list,
+    .top5-list {
+        padding: 0 15px 25px 15px !important; /* Sin padding superior */
+        margin-top: -55px !important; /* Subido 55px más arriba para móvil */
+        gap: 3px !important; /* Espacio más compacto entre elementos */
+        position: relative !important;
+        transform: translateY(-10px) !important; /* Ajuste adicional */
+    }
+    
+    .song-item {
+        padding: 8px 12px; /* Padding más compacto */
+        margin-bottom: 0;
+        min-height: 55px; /* Altura mínima reducida */
+    }
+    
+    .song-item img {
+        width: 45px; /* Imagen más pequeña */
+        height: 45px;
+        margin-right: 10px;
+    }
+    
+    .song-title {
+        font-size: 0.9em; /* Tamaño optimizado */
+        line-height: 1.1;
+    }
+    
+    .song-artist {
+        font-size: 0.8em; /* Tamaño optimizado */
+        line-height: 1.1;
+    }
+    
+    /* Ajustar números de posición para móvil */
+    .song-item::before {
+        left: 8px;
+        font-size: 0.75em;
+    }
+    
+    .song-item {
+        padding-left: 35px; /* Ajustado para móvil */
+    }
+}
+
+/* --- Reglas específicas para forzar espaciado en móvil --- */
+@media (max-width: 480px) {
+    .top5-hero__header {
+        padding: 10px 20px 0 20px !important;
+        margin-bottom: 0px !important;
+    }
+    
+    .top5-hero__title,
+    .title {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .top5-list,
+    #top-5-list {
+        margin-top: -60px !important; /* Subido 60px más arriba para móvil muy pequeño */
+        padding-top: 0 !important;
+    }
+}
+
+/* --- Media query para pantallas muy pequeñas --- */
+@media (max-width: 360px) {
+    .top5-hero__header {
+        padding: 8px 15px 0 15px !important;
+        margin-bottom: 0px !important;
+    }
+    
+    .top5-hero__title,
+    .title {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .top5-list,
+    #top-5-list {
+        margin-top: -60px !important; /* Subido 60px más arriba para móvil muy pequeño */
+        padding-top: 0 !important;
+        padding: 0 12px 20px 12px !important; /* Padding consistente */
+        position: relative !important;
+        transform: translateY(-10px) !important; /* Ajuste adicional */
+    }
+    
+    .top-5-container,
+    .top5-hero {
+        width: 100%; /* Mismo ancho que la película en móvil muy pequeño */
+        height: 520px; /* Altura reducida para pantallas muy pequeñas */
+        margin: 6px auto;
+    }
+    
+    .title,
+    .top5-hero__title {
+        font-size: 1.3em; /* Tamaño más pequeño pero legible */
+        margin: 6px 0 -10px 12px !important; /* Margen negativo menos agresivo */
+        line-height: 0.8 !important; /* Line-height más cómodo */
+        font-weight: 700 !important; /* Peso consistente */
+        text-shadow: 
+            0 2px 5px rgba(0,0,0,0.8),
+            0 1px 2px rgba(0,0,0,0.6),
+            inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    
+    #top-5-list,
+    .top5-list {
+        padding: 3px 12px 20px 12px; /* Pequeño padding superior */
+        gap: 2px; /* Espacio más compacto */
+    }
+    
+    .song-item {
+        padding: 6px 10px; /* Padding más compacto */
+        min-height: 50px; /* Altura mínima reducida */
+    }
+    
+    .song-item img {
+        width: 40px; /* Imagen más pequeña */
+        height: 40px;
+        margin-right: 8px;
+    }
+    
+    .song-title {
+        font-size: 0.9em;
+    }
+    
+    .song-artist {
+        font-size: 0.8em;
+    }
+    
+    .song-item::before {
+        left: 8px;
+        font-size: 0.75em;
+    }
+    
+    .song-item {
+        padding-left: 35px;
+    }
+}
+
+/* --- Animaciones adicionales --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.song-item {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.song-item:nth-child(1) { animation-delay: 0.1s; }
+.song-item:nth-child(2) { animation-delay: 0.2s; }
+.song-item:nth-child(3) { animation-delay: 0.3s; }
+.song-item:nth-child(4) { animation-delay: 0.4s; }
+.song-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* --- Estilos específicos para index_seo_perf.html --- */
+.top5-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    z-index: 0;
+}
+
+.top5-hero__content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.top5-hero__header {
+    padding: 20px 30px 0 30px !important; /* Padding reducido para subir el título */
+    margin-bottom: 0px !important; /* Sin margen negativo para escritorio */
+    line-height: 1 !important; /* Line-height normal */
+}
+
+.top5-hero__subtitle {
+    display: none; /* Ocultar el texto "Actualizado automáticamente" */
+}
+
+/* Asegurar que el overlay funcione correctamente */
+.top5-hero__overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    
+    /* Gradiente sutil para mejorar la legibilidad */
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.35) 50%,
+        rgba(0, 0, 0, 0.25) 100%
+    );
+    
+    /* Efecto Blur más intenso estilo iOS 26 */
+    -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(110%);
+    backdrop-filter: blur(20px) saturate(200%) brightness(110%);
+    
+    /* Borde sutil para el efecto de vidrio */
+    border-radius: inherit;
+}
+
+/* --- Reglas de override para asegurar espaciado correcto --- */
+@media (max-width: 768px) {
+    .top5-hero__header * {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .top5-hero__title,
+    .title {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .top5-list,
+    #top-5-list {
+        margin-top: -60px !important; /* Subido 60px más arriba para tablet */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        position: relative !important;
+        transform: translateY(-15px) !important; /* Ajuste adicional */
+    }
+}
+
+/* --- Override específico para móvil --- */
+@media (max-width: 480px) {
+    .top5-hero__header * {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .top5-hero__title,
+    .title {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .top5-list,
+    #top-5-list {
+        margin-top: -55px !important; /* Subido 55px más arriba para móvil */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        position: relative !important;
+        transform: translateY(-15px) !important; /* Ajuste adicional */
+    }
+}
+
+/* === REGLAS ULTRA ESPECÍFICAS PARA FORZAR EL MOVIMIENTO === */
+@media (max-width: 768px) {
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -75px !important; /* Subido 75px más arriba para tablet */
+        transform: translateY(-20px) !important; /* Ajuste adicional */
+    }
+}
+
+@media (max-width: 480px) {
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -70px !important; /* Subido 70px más arriba para móvil */
+        transform: translateY(-20px) !important; /* Ajuste adicional */
+    }
+}
+
+@media (max-width: 360px) {
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -75px !important; /* Subido 75px más arriba para móvil muy pequeño */
+        transform: translateY(-20px) !important; /* Ajuste adicional */
+    }
+}
+
+/* === REGLAS ULTRA AGRESIVAS CON MÁXIMA ESPECIFICIDAD - SOLO MÓVIL === */
+@media (max-width: 768px) {
+    #top5 #top-5-list,
+    #top5 .top5-list,
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -150px !important; /* Subido 150px más arriba para tablet */
+        transform: translateY(-50px) !important; /* Ajuste adicional */
+        position: relative !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #top5 #top-5-list,
+    #top5 .top5-list,
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -150px !important; /* Subido 150px más arriba para móvil */
+        transform: translateY(-50px) !important; /* Ajuste adicional */
+    }
+}
+
+@media (max-width: 360px) {
+    #top5 #top-5-list,
+    #top5 .top5-list,
+    .top5-hero #top-5-list,
+    .top5-hero .top5-list {
+        margin-top: -160px !important; /* Subido 160px más arriba para móvil muy pequeño */
+        transform: translateY(-60px) !important; /* Ajuste adicional */
+    }
+}
+
+/* === REGLAS PARA IGUALAR ANCHO CON LA PELÍCULA EN MÓVIL === */
+@media (max-width: 600px) {
+    .top5-hero,
+    .top-5-container {
+        width: 100% !important; /* Mismo ancho que la película */
+        max-width: 100% !important; /* Sin límite de ancho máximo */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .col-lg-6 .top5-hero,
+    .col-lg-6 .top-5-container {
+        width: 100% !important; /* Forzar ancho completo en la columna */
+    }
+}

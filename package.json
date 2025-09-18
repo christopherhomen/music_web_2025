@@ -1,0 +1,13 @@
+{
+  "name": "performance-radio",
+  "version": "1.0.0",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "performance-radio": "file:"
+  }
+}

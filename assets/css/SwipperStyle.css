@@ -1,31 +1,209 @@
 /*-----------------------------------------------------------------------------
 -----#  Slider con swiper----------------------------------------------------------*/
 
+/* PREVENIR VISIBILIDAD SIMULTÁNEA - REGLA CRÍTICA */
+/* OCULTAR AMBOS SWIPERS INICIALMENTE PARA EVITAR FLASH */
+swiper-container.mySwiperMobile { 
+    display: none !important; 
+    opacity: 0 !important; 
+    visibility: hidden !important; 
+}
+
+swiper-container.mySwiper { 
+    display: none !important; 
+    opacity: 0 !important; 
+    visibility: hidden !important; 
+}
+
+/* REGLAS ESPECÍFICAS POR ID PARA MAYOR ESPECIFICIDAD */
+#mySwiperDesktop {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#mySwiperMobile {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* SOBRESCRIBIR REGLAS CONFLICTIVAS DE style_optimized.css */
+@media (max-width: 767px) {
+    .mySwiper {
+        display: none !important;
+    }
+    #mySwiperMobile {
+        display: block !important;
+    }
+    swiper-container.mySwiperMobile {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    swiper-container.mySwiper {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+    #mySwiperMobile {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    #mySwiperDesktop {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .mySwiper {
+        display: block !important;
+    }
+    #mySwiperMobile {
+        display: none !important;
+    }
+    swiper-container.mySwiper {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    swiper-container.mySwiperMobile {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+    #mySwiperDesktop {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    #mySwiperMobile {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+/* Apple Music-like cards: wide, rounded, subtle motion */
+:root {
+    --card-radius: 18px;
+    --card-gap: 16px;
+    --card-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
 swiper-container {
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 16px 8px 16px; /* barra al ras del borde inferior del slider */
+    background-color: transparent;
+    /* Swiper web-component theme variables (evita azul por defecto) */
+    --swiper-theme-color: #ffffff; /* color activo (antes azul) */
+    --swiper-pagination-color: #ffffff;
+    --swiper-pagination-bullet-inactive-color: rgba(255,255,255,.35);
+    --swiper-pagination-bullet-inactive-opacity: 1;
+    --swiper-pagination-bullet-size: 7px;
+    --swiper-pagination-bullet-horizontal-gap: 5px;
+    --swiper-pagination-progressbar-size: 2px; /* línea fina estilo Apple */
+    /* Optimización para animaciones fluidas */
+    overflow: visible;
+    will-change: transform;
+    transform: translateZ(0); /* Aceleración por hardware */
+}
+
+/* Evitar parpadeo inicial: mostrar contenedores solo cuando estén listos */
+swiper-container{ 
+    opacity: 1; 
+    visibility: visible; 
+    transition: opacity .25s ease; 
+}
+
+swiper-container.is-ready{ 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+/* PREVENIR VISIBILIDAD SIMULTÁNEA DURANTE CARGA INICIAL */
+swiper-container.mySwiperMobile{ 
+    display: none !important; 
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 550px;
-    height: 505px;
+    width: clamp(260px, 32vw, 560px);
+    aspect-ratio: 4 / 3; /* más alto (formato solicitado) */
+    height: auto; /* lo determina el aspect-ratio */
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background-color: #111;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s ease,
+                scale 0.4s ease;
+    position: relative; /* para fijar la imagen absoluta dentro */
+    will-change: transform, box-shadow, opacity, scale; /* Optimización para animaciones */
+}
+/* Fallback para navegadores donde aspect-ratio falle (iOS Safari con web components) */
+swiper-slide::before{
+    content: "";
+    display: block;
+    padding-top: 75%; /* 4:3 => 3/4 = 75% */
+}
+
+swiper-slide:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0,0,0,.5);
+}
+
+/* Efecto de deslizamiento suave durante el movimiento */
+swiper-slide.swiper-slide-active {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+swiper-slide.swiper-slide-prev,
+swiper-slide.swiper-slide-next {
+    opacity: 0.8;
+    transform: scale(0.95);
 }
 
 swiper-slide img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    width: 120%;
+    background-color: #000;
+    border-radius: inherit;
+}
+
+@media (max-width: 768px){
+  swiper-slide{ width: 92vw; }
+}
+
+.mySwiper {
+    margin-left: 0;
+    margin-top: 8px;
+}
+
+.mySwiper .swiper-button-prev{
+    left: 40px !important;
+
 }
 
 .swiper {
     width: 100%;
-    height: 100%;
-    margin-left: -2px;
+    height: auto; /* deja que la altura la definan los slides */
+    /* layout base del contenedor */
     margin-right: auto;
     position: relative;
-    overflow: clip;
+    overflow: visible; /* evita cortes en móvil */
     list-style: none;
     padding: 0px;
     z-index: 1;
@@ -33,6 +211,7 @@ swiper-slide img {
 }
 .swiper-button-prev,
 .swiper-button-next {
+
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -42,17 +221,20 @@ swiper-slide img {
     padding: 0;
     font-size: 20px;
     font-weight: bold;
-    color: #007bff;
+    color: rgba(255,255,255,.85);
     background-color: transparent;
     border: none;
     cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
 }
 
 .swiper-button-prev:focus,
 .swiper-button-prev:hover,
 .swiper-button-next:focus,
 .swiper-button-next:hover {
-    color: #0056b3;
+    color: #ffffff;
     background-color: transparent;
 }
 
@@ -65,14 +247,85 @@ swiper-slide img {
     background-repeat: no-repeat;
 }
 
-/* Estilos específicos para la flecha izquierda */
-.swiper-button-prev {
-    left: 10px;
+#mySwiperDesktop .swiper-button-prev {
+    left: 24px;
 }
+
+
+
 
 /* Estilos específicos para la flecha derecha */
 .swiper-button-next {
-    right: 10px;
+    right: 24px;
+}
+
+/* Mostrar flechas solo en desktop on-hover (estilo Apple) */
+@media (hover:hover) and (pointer:fine){
+  swiper-container:hover .swiper-button-prev,
+  swiper-container:hover .swiper-button-next{
+    opacity: .95;
+    pointer-events: auto;
+  }
+}
+
+/* Ocultar flechas en móvil/tablet */
+@media (max-width: 1024px){
+  .swiper-button-prev,
+  .swiper-button-next{ display: none !important; }
+}
+
+/* Web Component arrows (::part) con el mismo comportamiento */
+swiper-container::part(button-prev),
+swiper-container::part(button-next){
+  opacity: 0;
+  pointer-events: none;
+  color: rgba(255,255,255,.85);
+  transition: opacity .2s ease;
+}
+@media (hover:hover) and (pointer:fine){
+  swiper-container:hover::part(button-prev),
+  swiper-container:hover::part(button-next){
+    opacity: .95;
+    pointer-events: auto;
+  }
+}
+@media (max-width: 1024px){
+  swiper-container::part(button-prev),
+  swiper-container::part(button-next){ display: none !important; }
+}
+
+/* Pagination bullets — estilo Apple usando ::part para web-component */
+/* Progressbar centrado debajo del slide */
+swiper-container{ overflow: visible; }
+swiper-container::part(pagination) {
+    position: absolute;
+    top: auto !important;
+    bottom: 0 !important; /* justo al borde inferior del slider */
+    left: var(--progress-left, 8px) !important;   /* bordes del slide activo */
+    right: var(--progress-right, 8px) !important; /* calculados por JS */
+    transform: none !important;
+    width: auto !important; /* ocupa el ancho del slide activo */
+    height: var(--swiper-pagination-progressbar-size) !important;
+    background: rgba(255,255,255,.14) !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    pointer-events: none;
+    z-index: 20; /* sobre las imágenes */
+}
+/* Relleno de la barra */
+swiper-container::part(progressbar-fill),
+swiper-container::part(pagination) .swiper-pagination-progressbar-fill{
+    background: linear-gradient(90deg, #ffffff, #e9edff, #ffffff) !important;
+    border-radius: inherit !important;
+    height: 100% !important;
+}
+
+/* Ocultar paginación (progressbar/bullets) cuando no se desea mostrar */
+swiper-container::part(pagination){
+    display: none !important;
+}
+@media (max-width: 768px){
+  swiper-container::part(pagination){ width: 60% !important; }
 }
 
 /*para iphone*/
@@ -116,3 +369,39 @@ swiper-slide img {
     }
 
 } */ 
+
+/* Mostrar un solo carrusel según viewport (evita que se vean ambos) */
+/* Desktop por defecto - FORZAR VISIBILIDAD */
+swiper-container.mySwiper{ 
+    display: block !important; 
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+swiper-container.mySwiperMobile{ 
+    display: none !important; 
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Ajustes específicos para móvil */
+@media (max-width: 768px){
+  swiper-container.mySwiper{ display:none !important; }
+  swiper-container.mySwiperMobile{ 
+    display:block !important; 
+    margin-top: 0 !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+  
+  /* Asegurar que el contenido no se suba debajo del menú */
+  #cta {
+    margin-top: 0 !important;
+    padding-top: 20px !important;
+  }
+  
+  /* Ajustar el swiper en móvil */
+  swiper-container.mySwiperMobile {
+    position: relative;
+    z-index: 1;
+  }
+}

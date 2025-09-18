@@ -1,0 +1,664 @@
+/* ==========================================
+   SERVICES PREMIUM SECTION - APPLE STYLE
+   ========================================== */
+
+:root {
+    --services-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    --services-card-bg: rgba(255, 255, 255, 0.03);
+    --services-card-border: rgba(255, 255, 255, 0.08);
+    --services-card-hover: rgba(255, 255, 255, 0.05);
+    --services-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --services-glow: 0 0 30px rgba(255, 255, 255, 0.1);
+    --services-text-primary: #ffffff;
+    --services-text-secondary: rgba(255, 255, 255, 0.7);
+    --services-text-muted: rgba(255, 255, 255, 0.5);
+    --services-accent: #007AFF;
+    --services-accent-hover: #0056CC;
+    --services-success: #30D158;
+    --services-warning: #FF9F0A;
+    --services-transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --services-transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --services-border-radius: 20px;
+    --services-spacing: 24px;
+}
+
+/* Main Section */
+.services-premium {
+    background: var(--services-bg);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(48, 209, 88, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 159, 10, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Header */
+.services-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 2;
+}
+
+.services-title {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #007AFF 50%, #30D158 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+    letter-spacing: -0.02em;
+}
+
+.services-subtitle {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--services-text-secondary);
+    margin-bottom: 60px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+/* Stats */
+.services-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    transition: var(--services-transition);
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+}
+
+.stat-number {
+    display: block;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--services-accent);
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.875rem;
+    color: var(--services-text-secondary);
+    font-weight: 500;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Service Cards */
+.service-card {
+    background: var(--services-card-bg);
+    border: 1px solid var(--services-card-border);
+    border-radius: var(--services-border-radius);
+    padding: 40px 32px;
+    position: relative;
+    transition: var(--services-transition);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        transparent 50%, 
+        rgba(0, 0, 0, 0.1) 100%);
+    opacity: 0;
+    transition: var(--services-transition);
+    pointer-events: none;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        var(--services-shadow),
+        var(--services-glow),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+/* Featured Card */
+.service-card.featured {
+    background: linear-gradient(135deg, 
+        rgba(0, 122, 255, 0.1) 0%, 
+        rgba(48, 209, 88, 0.05) 100%);
+    border-color: rgba(0, 122, 255, 0.3);
+    box-shadow: 
+        var(--services-shadow),
+        0 0 40px rgba(0, 122, 255, 0.2),
+        0 0 0 1px rgba(0, 122, 255, 0.2);
+}
+
+.service-card.featured:hover {
+    transform: translateY(-12px);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(0, 122, 255, 0.3),
+        0 0 0 1px rgba(0, 122, 255, 0.3);
+}
+
+/* Popular Badge */
+.popular-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 0 0 16px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+}
+
+.popular-badge svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Service Icon */
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(48, 209, 88, 0.1));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--services-accent);
+    transition: var(--services-transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.3), rgba(48, 209, 88, 0.2));
+    opacity: 0;
+    transition: var(--services-transition-fast);
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card:hover .service-icon::before {
+    opacity: 1;
+}
+
+.service-icon svg {
+    position: relative;
+    z-index: 2;
+}
+
+/* Service Content */
+.service-content {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.service-title {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--services-text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.service-description {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    color: var(--services-text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* Service Features */
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.service-features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.875rem;
+    color: var(--services-text-secondary);
+    transition: var(--services-transition-fast);
+    position: relative;
+}
+
+.service-features li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: var(--services-transition-fast);
+}
+
+.service-features li:hover {
+    color: var(--services-text-primary);
+    transform: translateX(4px);
+}
+
+.service-features li:hover::before {
+    transform: scale(1.5);
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.5);
+}
+
+/* Service Footer */
+.service-footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+.service-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--services-text-primary);
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--services-transition);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: var(--services-transition);
+}
+
+.service-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.service-btn:hover::before {
+    left: 100%;
+}
+
+.service-btn.featured {
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+}
+
+.service-btn.featured:hover {
+    background: linear-gradient(135deg, #0056CC, #007AFF);
+    box-shadow: 0 8px 32px rgba(0, 122, 255, 0.6);
+}
+
+/* Services Footer */
+.services-footer {
+    margin-top: 80px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, 
+        rgba(0, 122, 255, 0.1) 0%, 
+        rgba(48, 209, 88, 0.05) 100%);
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    border-radius: var(--services-border-radius);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(48, 209, 88, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cta-section h3 {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--services-text-primary);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section p {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.1rem;
+    color: var(--services-text-secondary);
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 36px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--services-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn.primary {
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+}
+
+.cta-btn.primary:hover {
+    background: linear-gradient(135deg, #0056CC, #007AFF);
+    box-shadow: 0 8px 32px rgba(0, 122, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.cta-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--services-text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+}
+
+.cta-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .services-premium {
+        padding: 60px 0;
+    }
+    
+    .services-header {
+        margin-bottom: 50px;
+        padding: 0 16px;
+        text-align: center;
+    }
+    
+    .services-title {
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        text-align: center;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+    
+    .services-subtitle {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+        line-height: 1.4;
+    }
+    
+    .services-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: 30px;
+    }
+    
+    .stat-item {
+        width: 280px;
+        max-width: 90%;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .service-card {
+        padding: 28px 20px;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .service-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 20px;
+    }
+    
+    .service-title {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+    
+    .service-description {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        text-align: center;
+    }
+    
+    .service-features {
+        text-align: left;
+        margin: 0 auto 24px;
+        max-width: 280px;
+    }
+    
+    .service-features li {
+        font-size: 0.85rem;
+        padding: 6px 0;
+        line-height: 1.4;
+    }
+    
+    .service-btn {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+    }
+    
+    .services-footer {
+        margin-top: 50px;
+        padding: 0 16px;
+    }
+    
+    .cta-section {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .cta-section h3 {
+        font-size: clamp(1.3rem, 5vw, 1.6rem);
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+    
+    .cta-section p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+    
+    .cta-btn {
+        padding: 16px 32px;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Animation for service cards */
+@keyframes service-loading {
+    0% { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.9); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+
+.service-card {
+    animation: service-loading 0.6s ease-out;
+}
+
+.service-card:nth-child(2) { animation-delay: 0.1s; }
+.service-card:nth-child(3) { animation-delay: 0.2s; }
+.service-card:nth-child(4) { animation-delay: 0.3s; }
+.service-card:nth-child(5) { animation-delay: 0.4s; }
+.service-card:nth-child(6) { animation-delay: 0.5s; }
+
+/* Hover animation for icons */
+@keyframes icon-bounce {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.service-card:hover .service-icon {
+    animation: icon-bounce 0.6s ease-in-out;
+}
+

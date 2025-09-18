@@ -1,0 +1,1044 @@
+/* ==========================================
+   ABOUT PREMIUM SECTION - APPLE STYLE
+   ========================================== */
+
+:root {
+    --about-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    --about-text-primary: #ffffff;
+    --about-text-secondary: rgba(255, 255, 255, 0.7);
+    --about-text-muted: rgba(255, 255, 255, 0.5);
+    --about-accent: #007AFF;
+    --about-accent-hover: #0056CC;
+    --about-success: #30D158;
+    --about-warning: #FF9F0A;
+    --about-transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --about-transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --about-border-radius: 20px;
+    --about-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --about-glow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+/* Main Section */
+.about-premium {
+    background: var(--about-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(48, 209, 88, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 159, 10, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Hero Section */
+.about-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    backdrop-filter: blur(1px);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--about-text-primary);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #007AFF 50%, #30D158 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--about-text-secondary);
+    margin-bottom: 60px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.hero-stat {
+    text-align: center;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    transition: var(--about-transition);
+    min-width: 180px;
+}
+
+.hero-stat:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+}
+
+.hero-stat .stat-number {
+    display: block;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--about-accent);
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-stat .stat-label {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.875rem;
+    color: var(--about-text-secondary);
+    font-weight: 500;
+}
+
+/* Mission Section */
+.mission-section {
+    padding: 120px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.mission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.mission-text {
+    padding-right: 40px;
+}
+
+.section-title {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--about-text-primary);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+}
+
+.mission-description {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.1rem;
+    color: var(--about-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.mission-features {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    transition: var(--about-transition);
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(8px);
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(48, 209, 88, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--about-accent);
+    flex-shrink: 0;
+}
+
+.feature-content h3 {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--about-text-primary);
+    margin-bottom: 8px;
+}
+
+.feature-content p {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.95rem;
+    color: var(--about-text-secondary);
+    line-height: 1.5;
+}
+
+.mission-video {
+    position: relative;
+}
+
+.video-container {
+    position: relative;
+    border-radius: var(--about-border-radius);
+    overflow: hidden;
+    box-shadow: var(--about-shadow);
+}
+
+.mission-video-element {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--about-transition);
+}
+
+.video-overlay:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--about-accent);
+    transition: var(--about-transition);
+    cursor: pointer;
+}
+
+.play-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+/* Values Section */
+.values-section {
+    padding: 120px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.value-card {
+    position: relative;
+    border-radius: var(--about-border-radius);
+    overflow: hidden;
+    box-shadow: var(--about-shadow);
+    transition: var(--about-transition);
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        var(--about-shadow),
+        var(--about-glow);
+}
+
+.value-video {
+    position: relative;
+    height: 300px;
+}
+
+.value-video-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.value-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    transition: var(--about-transition);
+}
+
+.value-overlay:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+}
+
+.value-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(48, 209, 88, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--about-accent);
+    margin-bottom: 24px;
+}
+
+.value-overlay h3 {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--about-text-primary);
+    margin-bottom: 16px;
+}
+
+.value-overlay p {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    color: var(--about-text-secondary);
+    line-height: 1.6;
+}
+
+/* Innovation Section */
+.innovation-section {
+    padding: 120px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.innovation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.innovation-video {
+    position: relative;
+}
+
+.innovation-video-element {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--about-border-radius);
+}
+
+.innovation-badge {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+}
+
+.innovation-text {
+    padding-left: 40px;
+}
+
+.innovation-description {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.1rem;
+    color: var(--about-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.innovation-features {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.innovation-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    transition: var(--about-transition);
+}
+
+.innovation-feature:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(8px);
+}
+
+.feature-number {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.feature-text h4 {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--about-text-primary);
+    margin-bottom: 8px;
+}
+
+.feature-text p {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.95rem;
+    color: var(--about-text-secondary);
+    line-height: 1.5;
+}
+
+/* Statistics Section */
+.stats-section {
+    padding: 120px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 40px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--about-border-radius);
+    backdrop-filter: blur(20px);
+    transition: var(--about-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 122, 255, 0.1) 0%, 
+        transparent 50%, 
+        rgba(48, 209, 88, 0.05) 100%);
+    opacity: 0;
+    transition: var(--about-transition);
+    pointer-events: none;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-8px);
+    box-shadow: var(--about-shadow);
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(48, 209, 88, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--about-accent);
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-number {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--about-accent);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, #007AFF, #30D158);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    color: var(--about-text-secondary);
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-hero {
+        height: 80vh;
+        min-height: 500px;
+        padding: 0 16px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+        line-height: 1.4;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: 40px;
+    }
+    
+    .hero-stat {
+        width: 280px;
+        max-width: 90%;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .hero-stat .stat-number {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .hero-stat .stat-label {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    .mission-content,
+    .innovation-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 16px;
+    }
+    
+    .mission-text,
+    .innovation-text {
+        padding: 0;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        text-align: center;
+        margin-bottom: 24px;
+        line-height: 1.2;
+    }
+    
+    .mission-description,
+    .innovation-description {
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 10px;
+        line-height: 1.6;
+    }
+    
+    .mission-features {
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .feature-item {
+        padding: 16px;
+        text-align: left;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+    
+    .feature-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+    }
+    
+    .feature-content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .value-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .value-video {
+        height: 250px;
+    }
+    
+    .value-overlay {
+        padding: 30px 20px;
+    }
+    
+    .value-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+    }
+    
+    .value-overlay h3 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+    
+    .value-overlay p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 16px;
+    }
+    
+    .stat-card {
+        padding: 30px 20px;
+        text-align: center;
+    }
+    
+    .stat-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    .mission-section,
+    .values-section,
+    .innovation-section,
+    .stats-section {
+        padding: 60px 0;
+    }
+    
+    .mission-video-element,
+    .innovation-video-element {
+        height: 280px;
+        border-radius: 16px;
+    }
+    
+    .innovation-badge {
+        top: 16px;
+        left: 16px;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .innovation-features {
+        gap: 24px;
+        margin-top: 30px;
+    }
+    
+    .innovation-feature {
+        padding: 20px;
+        gap: 16px;
+    }
+    
+    .feature-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .feature-text h4 {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+    }
+    
+    .feature-text p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .values-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Mobile muy pequeño */
+@media (max-width: 480px) {
+    .about-hero {
+        height: 70vh;
+        min-height: 400px;
+        padding: 0 12px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 7vw, 2.8rem);
+        margin-bottom: 16px;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+    
+    .hero-stat {
+        width: 260px;
+        padding: 16px;
+    }
+    
+    .hero-stat .stat-number {
+        font-size: 2rem;
+    }
+    
+    .hero-stat .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .mission-content,
+    .innovation-content {
+        padding: 0 12px;
+        gap: 30px;
+    }
+    
+    .section-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: 20px;
+    }
+    
+    .mission-description,
+    .innovation-description {
+        font-size: 0.95rem;
+        padding: 0 5px;
+    }
+    
+    .feature-item {
+        padding: 14px;
+        gap: 12px;
+    }
+    
+    .feature-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .feature-content h3 {
+        font-size: 1rem;
+    }
+    
+    .feature-content p {
+        font-size: 0.85rem;
+    }
+    
+    .values-grid {
+        padding: 0 12px;
+        gap: 20px;
+    }
+    
+    .value-video {
+        height: 220px;
+    }
+    
+    .value-overlay {
+        padding: 25px 15px;
+    }
+    
+    .value-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+    }
+    
+    .value-overlay h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    
+    .value-overlay p {
+        font-size: 0.9rem;
+    }
+    
+    .stats-grid {
+        padding: 0 12px;
+        gap: 16px;
+    }
+    
+    .stat-card {
+        padding: 24px 16px;
+    }
+    
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+    }
+    
+    .stat-number {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+    }
+    
+    .mission-section,
+    .values-section,
+    .innovation-section,
+    .stats-section {
+        padding: 50px 0;
+    }
+    
+    .mission-video-element,
+    .innovation-video-element {
+        height: 250px;
+    }
+    
+    .innovation-badge {
+        top: 12px;
+        left: 12px;
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .innovation-feature {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .feature-number {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .feature-text h4 {
+        font-size: 1rem;
+    }
+    
+    .feature-text p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Animation for sections */
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mission-section,
+.values-section,
+.innovation-section,
+.stats-section {
+    animation: fade-in-up 0.8s ease-out;
+}
+
+/* Video hover effects */
+@keyframes video-scale {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.video-container:hover .mission-video-element,
+.video-container:hover .innovation-video-element,
+.value-card:hover .value-video-element {
+    animation: video-scale 0.6s ease-out forwards;
+}
+
+/* Loading animation for stats */
+@keyframes stat-glow {
+    0% {
+        text-shadow: 0 0 0 rgba(0, 122, 255, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 122, 255, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 0 rgba(0, 122, 255, 0.5);
+    }
+}
+
+.stat-number.animated {
+    animation: stat-glow 0.5s ease-out;
+}

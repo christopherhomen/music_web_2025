@@ -1,0 +1,8 @@
+/* Core dark-only design tokens and base */
+:root{--bg:#0B0B0F;--bg-elev:#111318;--glass:rgba(255,255,255,0.06);--txt:#EDEFF2;--txt-2:#B9BEC8;--line:#222531;--accent:#7C8CFF;--accent-2:#A077FF;--success:#31D0AA;--warn:#F5C25C;--error:#FF6B6B;--radius-xl:24px;--radius-lg:18px;--radius-md:12px;--radius-sm:10px;--shadow-1:0 8px 24px rgba(0,0,0,.35);--blur:14px;--dur:200ms;--easing:cubic-bezier(0.22,1,0.36,1);--maxw:1200px;--pad:clamp(16px,3vw,32px);--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+img{max-width:100%;height:auto;display:block}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

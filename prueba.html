@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproductor de Música</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #1f1f1f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .player-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .player__img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .player__img:hover {
+      transform: scale(1.05);
+    }
+
+    h2.cc_streaminfo {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      max-width: 90%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .control-btn {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 35px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .control-btn:hover {
+      color: #ff4081;
+      transform: scale(1.1);
+    }
+
+    .control-btn:active {
+      transform: scale(0.9);
+    }
+
+    .volume-control {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .volume-control input {
+      width: 200px;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .volume-control input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #ff4081;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-control input::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #ff4081;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .progress-bar > div {
+      height: 100%;
+      width: 0%;
+      background: #ff4081;
+      border-radius: 10px;
+    }
+
+    /* Popups de información */
+    .popup-locutor {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: white;
+      display: none;
+      width: 200px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .popup-locutor.show {
+      display: block;
+    }
+
+    .info-button {
+      background-color: #444;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .info-button:hover {
+      background-color: #ff4081;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="player-container">
+    <!-- Imagen de la canción o locutor -->
+    <img class="player__img" src="https://media.giphy.com/media/P26ji65WoVIqWqcF9c/giphy.gif?cid=ecf05e47yehth3cmd3kj0auvfn0qdsam5qonz5klxjrqymu8&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Imagen del locutor">
+
+    <!-- Información de la canción o locutor -->
+    <h2 class="cc_streaminfo" data-type="rawmeta" data-username="perfor">Performance Radio</h2>
+
+    <!-- Controles de reproducción -->
+    <div class="controls">
+      <button id="play-radio" class="control-btn">
+        <span class="play-btn">&#9658;</span>
+        <span class="pause-btn hide">&#10074;&#10074;</span>
+      </button>
+    </div>
+
+    <!-- Control de volumen -->
+    <div class="volume-control hide">
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+
+    <!-- Botones de info (con popups) -->
+    <div>
+      <button class="info-button" data-lorem="Información del locutor 1">Locutor 1</button>
+      <button class="info-button" data-lorem="Información del locutor 2">Locutor 2</button>
+    </div>
+
+    <!-- Popups -->
+    <div class="popup-locutor">Información del locutor</div>
+  </div>
+
+  <!-- Reproductor de audio -->
+  <audio id="audio"></audio>
+
+  <!-- Incluir el archivo de streaminfo.js -->
+  <script type="text/javascript" src="https://cp9.serverse.com/system/streaminfo.js"></script>
+
+  <script>
+    const playPause = document.getElementById("play-radio");
+    const playIcon = playPause.querySelector(".play-btn");
+    const pauseIcon = playPause.querySelector(".pause-btn");
+    const h2Element = document.querySelector('h2.cc_streaminfo');
+    const imgElement = document.querySelector('img.player__img');
+    let prevText = null;
+
+    class AudioPlayer {
+      constructor() {
+        this.audio = document.getElementById("audio");
+        this.playPause = playPause;
+        this.playBtn = playIcon;
+        this.pauseBtn = pauseIcon;
+
+        const wasPlaying = localStorage.getItem("radioIsPlaying") === "true";
+        if (wasPlaying) {
+          this.startLiveStream();
+          this.updatePlayPauseIcons(true);
+        } else {
+          this.updatePlayPauseIcons(false);
+        }
+
+        this.audio.addEventListener("ended", () => {
+          this.startLiveStream();
+        });
+
+        this.audio.addEventListener("error", this.handleError.bind(this));
+
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden && this.audio.paused && !this.audio.ended) {
+            this.audio.play().catch(this.handleError.bind(this));
+          }
+        });
+
+        window.addEventListener("focus", () => {
+          if (this.audio.paused && !this.audio.ended) {
+            this.audio.play().catch(this.handleError.bind(this));
+          }
+        });
+      }
+
+      updatePlayPauseIcons(isPlaying) {
+        if (isPlaying) {
+          this.pauseBtn.classList.remove("hide");
+          this.playBtn.classList.add("hide");
+        } else {
+          this.pauseBtn.classList.add("hide");
+          this.playBtn.classList.remove("hide");
+        }
+      }
+
+      startLiveStream() {
+        this.audio.src = "https://cp9.serverse.com/proxy/perfor?mp=/stream;";
+        this.audio.load();
+        this.audio.play().catch(this.handleError.bind(this));
+        localStorage.setItem("radioIsPlaying", "true");
+      }
+
+      handleError(event) {
+        console.error("Error de reproducción de audio: ", event);
+        localStorage.setItem("radioIsPlaying", "false");
+        this.updatePlayPauseIcons(false);
+      }
+
+      playAudio() {
+        if (this.audio.paused || this.audio.ended) {
+          this.updatePlayPauseIcons(true);
+          this.startLiveStream();
+          document.querySelector('.volume-control').classList.remove('hide');
+        } else {
+          this.audio.pause();
+          this.updatePlayPauseIcons(false);
+          localStorage.setItem("radioIsPlaying", "false");
+        }
+      }
+    }
+
+    const audioPlayer = new AudioPlayer();
+
+    playPause.addEventListener("click", () => {
+      audioPlayer.playAudio();
+    });
+
+    setInterval(updateImage, 1000);
+
+    async function updateImage() {
+      const text = h2Element.textContent.trim();
+      if (text !== prevText) {
+        prevText = text;
+        imgElement.src = 'https://media.giphy.com/media/P26ji65WoVIqWqcF9c/giphy.gif?cid=ecf05e47yehth3cmd3kj0auvfn0qdsam5qonz5klxjrqymu8&ep=v1_gifs_search&rid=giphy.gif&ct=g';
+      }
+    }
+
+    const infoButtons = document.querySelectorAll('.info-button');
+    const popups = document.querySelectorAll('.popup-locutor');
+
+    infoButtons.forEach((button, index) => {
+      const loremText = button.dataset.lorem;
+      const popup = popups[index];
+
+      button.addEventListener('mouseover', () => {
+        popup.classList.add('show');
+        popup.textContent = loremText;
+      });
+
+      button.addEventListener('mouseout', () => {
+        popup.classList.remove('show');
+      });
+    });
+  </script>
+</body>
+</html>

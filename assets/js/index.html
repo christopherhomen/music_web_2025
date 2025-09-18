@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 5 Canciones Populares de Spotify</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .top-5-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s;
+        }
+
+        .song-item:last-child {
+            border-bottom: none;
+        }
+
+        .song-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .song-item img {
+            width: 80px; /* Se incrementa el tamaño para una mejor visualización */
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 20px; /* Espacio suficiente entre la imagen y el texto */
+        }
+
+        .song-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .song-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .song-artist {
+            color: #666;
+            margin-top: 5px; /* Espacio ligero entre el título y el artista */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-5-container">
+        <h1 class="title">Top 5 Canciones Populares de Spotify</h1>
+        <div id="top-5-list">
+            <!-- Aquí se agregarán dinámicamente las canciones -->
+        </div>
+    </div>
+
+    <script>
+        async function obtenerTokenSpotify() {
+            const client_id = 'f1b16c2196f54bc5af6bebb3dcdcb811';
+            const client_secret = '8e271fe82c07474ab3b3d591e3eece49';
+            const url = 'https://accounts.spotify.com/api/token';
+            
+            const auth = btoa(`${client_id}:${client_secret}`); // Codifica en Base64
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Basic ${auth}`,
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'grant_type=client_credentials'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al autenticar con Spotify');
+                }
+
+                const data = await response.json();
+                return data.access_token;
+
+            } catch (error) {
+                console.error('Error al obtener el token de acceso:', error);
+            }
+        }
+
+        async function obtenerCancionesPopulares() {
+            const token = await obtenerTokenSpotify();
+            if (!token) return;
+
+            // URL de la playlist de Top 50 Global (puedes usar cualquier otra)
+            const apiUrl = 'https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al obtener las canciones');
+                }
+
+                const datos = await response.json();
+                const canciones = datos.tracks.items.slice(0, 5); // Obtener las primeras 5 canciones
+
+                // Insertar las canciones en la lista del HTML
+                const listadoElement = document.getElementById('top-5-list');
+                listadoElement.innerHTML = ''; // Limpiar cualquier contenido existente
+
+                canciones.forEach(cancion => {
+                    const track = cancion.track;
+
+                    const songItem = document.createElement('div');
+                    songItem.className = 'song-item';
+
+                    const img = document.createElement('img');
+                    img.src = track.album.images[0].url; // Obtener la portada del álbum
+
+                    const songInfo = document.createElement('div');
+                    songInfo.className = 'song-info';
+
+                    const songTitle = document.createElement('p');
+                    songTitle.className = 'song-title';
+                    songTitle.textContent = track.name;
+
+                    const songArtist = document.createElement('p');
+                    songArtist.className = 'song-artist';
+                    songArtist.textContent = track.artists.map(artist => artist.name).join(", ");
+
+                    songInfo.appendChild(songTitle);
+                    songInfo.appendChild(songArtist);
+                    songItem.appendChild(img);
+                    songItem.appendChild(songInfo);
+
+                    listadoElement.appendChild(songItem);
+                });
+
+            } catch (error) {
+                console.error('Error al obtener las canciones:', error);
+            }
+        }
+
+        // Llamar a la función para obtener las canciones populares al cargar la página
+        obtenerCancionesPopulares();
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Película Recomendada de la Semana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .movie-container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .movie-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        .movie-overview {
+            font-size: 1.2em;
+            line-height: 1.5;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .recommended-title {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .movie-overview {
+                font-size: 1em;
+            }
+
+            .recommended-title {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="movie-container" class="movie-container">
+        <div class="movie-info">
+            <h1 class="recommended-title">Película Recomendada</h1>
+            <h1 id="movie-title" class="movie-title"></h1>
+            <p id="movie-overview" class="movie-overview"></p>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = '83ab677dd66abff188f6d60a21902fae'; // Tu clave de API de TMDb
+        const apiUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey + '&sort_by=popularity.desc&language=es';
+
+        async function obtenerPeliculaRecomendada() {
+            try {
+                // Realizar la solicitud a la API de TMDb
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4M2FiNjc3ZGQ2NmFiZmYxODhmNmQ2MGEyMTkwMmZhZSIsIm5iZiI6MTcyOTQ3MTIwNS4zMjY1NjUsInN1YiI6IjY3MTVhMWJjY2VmMTQ2MjhmZWY2MDRmNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XxskF6w9z63KWR36e4wz9-SflaTcPsm--BCitSQY178'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener la película');
+                }
+
+                const data = await response.json();
+                // Obtener una película aleatoria de los resultados
+                const peliculas = data.results;
+                const peliculaAleatoria = peliculas[Math.floor(Math.random() * peliculas.length)];
+
+                // Obtener los elementos del DOM
+                const movieContainer = document.getElementById('movie-container');
+                const movieTitle = document.getElementById('movie-title');
+                const movieOverview = document.getElementById('movie-overview');
+
+                // Actualizar los elementos del DOM con la información de la película
+                movieContainer.style.backgroundImage = 'url(https://image.tmdb.org/t/p/w1280' + peliculaAleatoria.backdrop_path + ')'; // URL de la imagen de fondo
+                movieTitle.textContent = peliculaAleatoria.title; // Título de la película
+                movieOverview.textContent = peliculaAleatoria.overview; // Resumen de la película
+
+            } catch (error) {
+                console.error('Hubo un error:', error);
+            }
+        }
+
+        // Llamar a la función para obtener la película recomendada
+        obtenerPeliculaRecomendada();
+    </script>
+
+</body>
+</html>
+
+

@@ -1,22 +1,60 @@
-﻿/* Reproductor fijo modernizado (pill + glass + neón) */
+/* Reproductor fijo modernizado (pill + glass + neón) */
 :root {
   --accent: #ff7a00; /* Neon orange initial */
   --glass-bg: rgba(24, 24, 24, 0.6);
   --glass-border: rgba(255, 255, 255, 0.12);
   --text-dim: #cfcfcf;
   --player-h: 88px; /* altura aproximada del reproductor */
-  /* Paleta para degradados premium */
-  --grad-1: #ff7a00; /* naranja inicial */
-  --grad-2: #ff00f5; /* magenta neón */
-  --grad-3: #00e5ff; /* cian neón */
-  --grad-4: #b6ff00; /* chartreuse neón */
+  /* Paleta para degradados premium súper neón */
+  --grad-1: #ff0080; /* rosa neón súper brillante */
+  --grad-2: #00ffff; /* cian neón súper brillante */
+  --grad-3: #ff00ff; /* magenta neón súper brillante */
+  --grad-4: #00ff00; /* verde neón súper brillante */
+  --grad-5: #ffff00; /* amarillo neón súper brillante */
+  --grad-6: #ff4000; /* naranja neón súper brillante */
+}
+
+/* Reset para eliminar espacios no deseados */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Eliminar cualquier margen o padding que cause espacios grandes */
+* {
+  box-sizing: border-box;
+}
+
+/* Asegurar que el contenido principal esté justo debajo del header */
+#hero,
+#main,
+main,
+.section,
+.container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Reglas específicas para escritorio - reproductor y menú pegados */
+@media (min-width: 769px) {
+  #hero {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* El header debe estar pegado al reproductor */
+.fixed-player + #header {
+  margin-top: -75px !important; /* Subir 15px más la barra de navegación */
 }
 
 .fixed-player {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  z-index: 1100; /* por encima del header fijo */
+  z-index: 1000; /* mismo nivel que el header */
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.75) 0%,
@@ -24,14 +62,16 @@
     rgba(0, 0, 0, 0) 100%
   );
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #header {
   position: relative;
-  margin-top: var(--player-h); /* empuja el header justo debajo del reproductor */
-  top: 0; /* sin desplazamiento adicional */
+  margin-top: -75px; /* Subir 15px más la barra de navegación */
+  top: 0;
   width: 100%;
-  z-index: 1; /* por encima del fondo, por debajo del reproductor */
+  z-index: 1;
   background: rgba(21, 5, 23, 0.25);
   transition: margin-top 0.3s ease;
 }
@@ -47,7 +87,7 @@
 }
 
 #hero {
-  margin-top: -100px; /* Ajusta este valor según la altura total del reproductor y el header */
+  margin-top: 0; /* Sin margen adicional, el header ya tiene el espacio del reproductor */
 }
 
 .radio-player {
@@ -57,7 +97,7 @@
   background: var(--glass-bg);
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
-  border-radius: 28px; /* menos redondeado que pill completo */
+  border-radius: 12px;
   border: 1px solid var(--glass-border);
   color: #fff;
   font-family: "Raleway", sans-serif;
@@ -65,7 +105,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  column-gap: 18px;
+  column-gap: 16px;
   position: relative; /* para centrar controles */
 }
 
@@ -81,6 +121,7 @@
   gap: 14px;
   z-index: 2;
 }
+   
 
 .center-controls .waveform {
   width: auto; /* evita ocupar todo el ancho */
@@ -130,24 +171,36 @@
   width: 64px;
   height: 64px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35), 0 0 12px rgba(255,122,0,.35), inset 0 0 20px rgba(255,122,0,.20);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.radio-player .radio-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .radio-player .play-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(120% 140% at 30% 30%, #1a1a1a 0%, #0f0f0f 60%);
-  color: #111;
+  background: linear-gradient(135deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4), var(--grad-5), var(--grad-6));
+  background-size: 400% 400%;
+  color: #ffffff;
   border-radius: 9999px;
   width: 56px;
   height: 56px;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   position: relative;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35), 0 0 12px rgba(255,122,0,.35), inset 0 0 20px rgba(255,122,0,.20);
-  animation: colorCycle 16s linear infinite; /* sólo el botón cambia de color */
+  box-shadow: 
+    0 0 25px rgba(255, 0, 128, 0.8),
+    0 0 50px rgba(0, 255, 255, 0.6),
+    0 0 75px rgba(255, 0, 255, 0.4),
+    0 0 100px rgba(0, 255, 0, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+  animation: gradientShift 3s ease-in-out infinite alternate, neonPulse 2s ease-in-out infinite alternate;
 }
 
 .radio-player .play-button:hover {
@@ -247,11 +300,15 @@
   display: block;
   width: 4px;
   height: 8px;
-  background-image: linear-gradient(135deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
-  background-size: 300% 300%;
+  background-image: linear-gradient(135deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4), var(--grad-5), var(--grad-6));
+  background-size: 400% 400%;
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(255, 122, 0, 0.45);
-  animation: equalize 1.2s linear infinite, gradientShift 8s ease-in-out infinite alternate;
+  box-shadow: 
+    0 0 15px rgba(255, 0, 128, 0.8),
+    0 0 25px rgba(0, 255, 255, 0.6),
+    0 0 35px rgba(255, 0, 255, 0.4),
+    0 0 45px rgba(0, 255, 0, 0.3);
+  animation: equalize 1.2s linear infinite, gradientShift 6s ease-in-out infinite alternate, neonGlow 2s ease-in-out infinite alternate;
   animation-play-state: paused;
   transform-origin: center bottom;
 }
@@ -326,6 +383,44 @@
 @keyframes colorCycle {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
+}
+
+/* Animación de pulso neón súper brillante */
+@keyframes neonPulse {
+  0% { 
+    box-shadow: 
+      0 0 25px rgba(255, 0, 128, 0.8),
+      0 0 50px rgba(0, 255, 255, 0.6),
+      0 0 75px rgba(255, 0, 255, 0.4),
+      0 0 100px rgba(0, 255, 0, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  100% { 
+    box-shadow: 
+      0 0 35px rgba(255, 0, 128, 1),
+      0 0 70px rgba(0, 255, 255, 0.8),
+      0 0 105px rgba(255, 0, 255, 0.6),
+      0 0 140px rgba(0, 255, 0, 0.5),
+      inset 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Animación de brillo neón para el ecualizador */
+@keyframes neonGlow {
+  0% { 
+    box-shadow: 
+      0 0 15px rgba(255, 0, 128, 0.8),
+      0 0 25px rgba(0, 255, 255, 0.6),
+      0 0 35px rgba(255, 0, 255, 0.4),
+      0 0 45px rgba(0, 255, 0, 0.3);
+  }
+  100% { 
+    box-shadow: 
+      0 0 25px rgba(255, 0, 128, 1),
+      0 0 45px rgba(0, 255, 255, 0.8),
+      0 0 65px rgba(255, 0, 255, 0.6),
+      0 0 85px rgba(0, 255, 0, 0.5);
+  }
 }
 
 /* (Eliminada animación lavaShift; no se usa) */
@@ -429,3 +524,41 @@
 .radio-player .play-button::after { content: none; }
 .radio-player.playing .play-button::after { animation: none; }
 .radio-player.playing .play-button { animation: pulseGlow 2.4s ease-in-out infinite; }
+
+/* === Revert: estilo previo (solo botón y EQ cambian color con colorCycle) === */
+.radio-player .play-button {
+  background: var(--accent) !important;
+  box-shadow: 0 0 18px var(--accent), 0 6px 14px rgba(0,0,0,0.35) !important;
+  animation: colorCycle 16s linear infinite !important;
+}
+
+.radio-player .play-button::before,
+.radio-player .play-button::after {
+  content: none !important;
+  animation: none !important;
+}
+
+.waveform {
+  animation: colorCycle 16s linear infinite !important;
+}
+
+.waveform span {
+  background: var(--accent) !important;
+  box-shadow: 0 0 10px var(--accent) !important;
+  animation: equalize 1.2s linear infinite !important;
+  animation-play-state: paused !important;
+}
+
+.radio-player.playing .waveform span,
+.waveform.playing span {
+  animation-play-state: running !important;
+}
+
+/* Equalizador natural controlado por JS: desactiva keyframes en barras */
+.waveform span {
+  animation: none !important;
+  height: 8px;
+  transform: scaleY(1);
+  transform-origin: center bottom;
+  will-change: transform;
+}

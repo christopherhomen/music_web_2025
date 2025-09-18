@@ -1,0 +1,9 @@
+/* Glass nav + shrink */
+.c-nav{position:sticky;top:var(--player-offset,88px);height:64px;z-index:1005;backdrop-filter:saturate(120%) blur(var(--blur));-webkit-backdrop-filter:saturate(120%) blur(var(--blur));background:linear-gradient(180deg,rgba(17,19,24,.7),rgba(17,19,24,.35));border-bottom:1px solid var(--line)}
+.c-nav.is-scrolled{height:56px;transition:height var(--dur) var(--easing)}
+.c-nav__inner{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;gap:12px}
+.c-nav__brand{display:flex;align-items:center;gap:10px;color:var(--txt);font-weight:600}
+.c-nav__items{margin-left:auto;display:flex;gap:6px}
+.c-nav__link{color:var(--txt-2);padding:8px 12px;border-radius:10px}
+.c-nav__link:hover,.c-nav__link:focus{background:var(--glass);color:var(--txt);outline:none}
+.c-nav__link[aria-current="page"],.c-nav__link[aria-current="true"]{color:var(--txt);background:rgba(124,140,255,.12)}

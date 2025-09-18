@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disco Recomendado Estilo Apple Music</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .album-recomendado {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .album-recomendado:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 30px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .album-cover {
+            width: 100%;
+            height: auto;
+            transition: transform 0.4s ease;
+        }
+
+        .album-recomendado:hover .album-cover {
+            transform: scale(1.05);
+        }
+
+        .album-details {
+            padding: 25px;
+        }
+
+        .album-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #000;
+            margin: 15px 0 10px;
+        }
+
+        .album-artist {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .album-description {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="album-recomendado">
+        <img id="album-cover" class="album-cover" src="https://via.placeholder.com/600" alt="Portada del álbum">
+        <div class="album-details">
+            <h2 id="album-title" class="album-title">Título del Álbum</h2>
+            <p id="album-artist" class="album-artist">Artista del Álbum</p>
+            <p id="album-description" class="album-description">Descripción del álbum. Información destacada para que el oyente conozca un poco más sobre el contenido del disco.</p>
+        </div>
+    </div>
+
+    <script>
+        async function obtenerTokenSpotify() {
+            const client_id = 'f1b16c2196f54bc5af6bebb3dcdcb811';
+            const client_secret = '8e271fe82c07474ab3b3d591e3eece49';
+            const url = 'https://accounts.spotify.com/api/token';
+            
+            const auth = btoa(`${client_id}:${client_secret}`); // Codifica en Base64
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Basic ${auth}`,
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'grant_type=client_credentials'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al autenticar con Spotify');
+                }
+
+                const data = await response.json();
+                return data.access_token;
+
+            } catch (error) {
+                console.error('Error al obtener el token de acceso:', error);
+            }
+        }
+
+        async function obtenerAlbumRecomendado() {
+            const token = await obtenerTokenSpotify();
+            if (!token) return;
+
+            // URL del endpoint de "Novedades" o álbum popular
+            const apiUrl = 'https://api.spotify.com/v1/browse/new-releases?country=US&limit=1';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al obtener el álbum');
+                }
+
+                const data = await response.json();
+                const album = data.albums.items[0]; // Obtener el primer álbum de las novedades
+
+                // Insertar los detalles del álbum en el HTML
+                const albumCoverElement = document.getElementById('album-cover');
+                albumCoverElement.src = album.images[0].url;
+                albumCoverElement.alt = `Portada del álbum ${album.name}`;
+
+                const albumTitleElement = document.getElementById('album-title');
+                albumTitleElement.textContent = album.name;
+
+                const albumArtistElement = document.getElementById('album-artist');
+                albumArtistElement.textContent = album.artists.map(artist => artist.name).join(", ");
+
+                const albumDescriptionElement = document.getElementById('album-description');
+                albumDescriptionElement.textContent = `Te recomendamos el álbum "${album.name}" de ${album.artists.map(artist => artist.name).join(", ")}, lanzado recientemente y destacado por Spotify.`;
+
+            } catch (error) {
+                console.error('Error al obtener el álbum:', error);
+            }
+        }
+
+        // Llamar a la función para obtener el álbum recomendado al cargar la página
+        obtenerAlbumRecomendado();
+    </script>
+</body>
+</html>

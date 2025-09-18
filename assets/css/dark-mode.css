@@ -1,0 +1,141 @@
+body {
+    color: #f0f0f0 !important;
+    background-color: #121212 !important;
+}
+
+a {
+    color: #ff7f5d !important;
+}
+
+a:hover {
+    color: #ffa790 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #f0f0f0 !important;
+}
+
+#preloader {
+    background: #1a1a1a !important;
+}
+
+.back-to-top {
+    background: #333333 !important;
+}
+
+.back-to-top i {
+    color: #f0f0f0 !important;
+}
+
+#header {
+    background: rgba(18, 18, 18, 0.85) !important;
+}
+
+#header .logo a {
+    color: #f0f0f0 !important;
+}
+
+#header .logo img {
+    filter: invert(1) !important;
+}
+
+.navbar a {
+    color: #f0f0f0 !important;
+}
+
+.navbar .dropdown ul {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}
+
+.navbar .dropdown ul a {
+    color: #f0f0f0 !important;
+}
+
+.navbar .dropdown ul a:hover {
+    color: #ff7f5d !important;
+}
+
+#hero {
+    background: #000000 !important;
+    color: #f0f0f0 !important;
+}
+
+.section-bg {
+    background-color: #1a1a1a !important;
+}
+
+.about .content h3 {
+    color: #f0f0f0 !important;
+}
+
+.about .content ul li {
+    color: #f0f0f0 !important;
+}
+
+.counts .counters span {
+    color: #ff7f5d !important;
+}
+
+.counts .counters p {
+    color: #f0f0f0 !important;
+}
+
+.portfolio #portfolio-flters li {
+    color: #f0f0f0 !important;
+}
+
+#footer {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}
+
+#footer .footer-newsletter form input[type=email] {
+    background: #333333 !important;
+    color: #f0f0f0 !important;
+}
+
+#footer .footer-newsletter form input[type=submit] {
+    background: #ff7f5d !important;
+    color: #f0f0f0 !important;
+}
+
+#footer .social-links a {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f0f0f0 !important;
+}
+
+.services .icon-box {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}
+
+.testimonials .testimonial-item {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}
+
+.cta {
+    background: #333333 !important;
+    color: #f0f0f0 !important;
+}
+
+.contact .info {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}
+
+.contact .php-email-form input, .contact .php-email-form textarea {
+    background: #333333 !important;
+    color: #f0f0f0 !important;
+}
+
+.contact .php-email-form button[type=submit] {
+    background: #ff7f5d !important;
+    color: #f0f0f0 !important;
+}
+
+.breadcrumbs {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+}

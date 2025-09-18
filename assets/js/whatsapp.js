@@ -1,6 +1,11 @@
 window.addEventListener("scroll", function() {
-  // Obtener referencia al botón de WhatsApp
-  var whatsappButton = document.querySelector(".whatsapp");
+  // Obtener referencia al botón de WhatsApp (nuevo selector)
+  var whatsappButton = document.querySelector(".whatsapp-btn");
+  
+  // Verificar que el botón existe antes de continuar
+  if (!whatsappButton) {
+    return; // Salir si no existe el botón
+  }
   
   // Obtener posición de desplazamiento vertical
   var scrollPosition = window.scrollY || document.documentElement.scrollTop;
