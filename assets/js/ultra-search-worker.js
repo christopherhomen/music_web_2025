@@ -135,3 +135,6 @@ console.log('⚡ Web Worker de búsquedas ultra rápidas inicializado');
 
 
 
+
+
+

@@ -387,3 +387,6 @@ console.log('🧪 Script de prueba cargado. Ejecuta window.runSystemTest() para 
 
 
 
+
+
+

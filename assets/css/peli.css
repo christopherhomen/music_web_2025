@@ -352,7 +352,7 @@
         width: 100% !important;
         max-width: 900px !important; /* Mismo ancho que Top 5 */
         margin: 40px auto !important; /* Mismo margen que Top 5 */
-        height: auto !important;
+        height: 650px !important; /* Misma altura que Top 5 */
         display: flex !important;
         align-items: stretch !important;
         position: relative !important;

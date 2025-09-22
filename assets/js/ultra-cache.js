@@ -177,3 +177,6 @@ console.log('💾 Cache ultra rápido inicializado');
 
 
 
+
+
+
