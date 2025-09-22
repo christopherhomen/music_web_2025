@@ -62,7 +62,7 @@ class MobileNavbar {
                     </a>
                 </li>
                 <li class="mobile-navbar__item">
-                    <a href="#about" class="mobile-navbar__link" data-section="about">
+                    <a href="iniciosesionLS.html" class="mobile-navbar__link" data-section="about">
                         <span>Acerca de</span>
                         <i class="bi bi-info-circle"></i>
                     </a>
