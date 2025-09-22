@@ -2,7 +2,7 @@
 
 ### 2025-09-12
 
-- Dark-only redesign applied using existing sections and content in `index_seo_perf.html`.
+- Dark-only redesign applied using existing sections and content in `index.html` (archivo principal).
 - Kept radio player intact; no changes to its HTML/CSS/JS.
 - Removed placeholder sections previously added (`home/locutores/programacion/galeria/contacto`) and custom nav.
 - Restyled legacy header/navbar with glassmorphism and dark tokens.

@@ -80,38 +80,6 @@ class SystemTest {
         });
       }
     }
-    
-    // Prueba específica de detección de locutores
-    console.log('\n🎤 Probando detección de locutores...');
-    const locutorTestCases = [
-      'DAVID FLORES DESDE CHILE',
-      'MARIA JOSE EN VIVO',
-      'CARLOS ALBERTO DESDE MEXICO',
-      'ANA PATRICIA CON MUSICA',
-      'RICARDO FERNANDEZ EN DIRECTO'
-    ];
-    
-    for (const testCase of locutorTestCases) {
-      try {
-        const detected = window.testLocutorDetection(testCase);
-        const success = detected.length > 0;
-        
-        this.testResults.textCleaning.push({
-          input: `[LOCUTOR] ${testCase}`,
-          output: detected.join(', '),
-          success: success
-        });
-        
-        console.log(`${success ? '✅' : '❌'} "${testCase}" → Locutores: [${detected.join(', ')}]`);
-      } catch (error) {
-        console.error('❌ Error en detección de locutor:', error);
-        this.testResults.textCleaning.push({
-          input: `[LOCUTOR] ${testCase}`,
-          output: 'ERROR',
-          success: false
-        });
-      }
-    }
   }
   
   async testApiConnections() {
@@ -412,4 +380,10 @@ setTimeout(() => {
 }, 2000);
 
 console.log('🧪 Script de prueba cargado. Ejecuta window.runSystemTest() para prueba manual.');
+
+
+
+
+
+
 

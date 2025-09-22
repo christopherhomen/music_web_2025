@@ -41,10 +41,6 @@ window.UNIFIED_STREAM_CONFIG = {
   
   // Configuración de APIs
   apis: {
-    local: {
-      enabled: true,
-      priority: 1 // Primero en orden - imágenes locales de locutores
-    },
     spotify: {
       clientId: 'f1b16c2196f54bc5af6bebb3dcdcb811',
       clientSecret: '8e271fe82c07474ab3b3d591e3eece49',
@@ -53,12 +49,12 @@ window.UNIFIED_STREAM_CONFIG = {
     },
     appleMusic: {
       enabled: true,
-      priority: 4
+      priority: 3
     },
     lastFm: {
       apiKey: '21f84fcdb8652dccff838fbbb408d91e',
       enabled: true,
-      priority: 5 // Bajado de prioridad
+      priority: 4 // Bajado de prioridad
     },
     youtubeMusic: {
       apiKey: 'AIzaSyCO5F3yenpdk4j1zknsu3rn3NKYzoTvbBA',
@@ -69,6 +65,10 @@ window.UNIFIED_STREAM_CONFIG = {
       apiKey: 'AIzaSyCO5F3yenpdk4j1zknsu3rn3NKYzoTvbBA',
       enabled: true,
       priority: 6 // YouTube normal como último recurso
+    },
+    local: {
+      enabled: true,
+      priority: 1 // Más rápido - búsqueda local
     }
   },
   

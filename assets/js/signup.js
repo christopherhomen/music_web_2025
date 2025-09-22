@@ -30,83 +30,248 @@
 //     window.location.href = 'iniciosesionLS.html'
 // })
 
-const signupForm = document.querySelector('#signupForm')
+// ==========================================
+// APPLE-STYLE REGISTRATION FORM
+// Validaciones elegantes y UX mejorada
+// ==========================================
 
+const signupForm = document.querySelector('#signupForm')
+const formFields = {
+    name: document.querySelector('#name'),
+    number: document.querySelector('#number'),
+    email: document.querySelector('#email'),
+    password: document.querySelector('#password')
+}
+
+// Función para mostrar estados visuales y mensajes de error
+function setFieldState(field, state, message = '') {
+    field.classList.remove('error', 'success')
+    if (state) {
+        field.classList.add(state)
+    }
+    
+    // Remover mensaje de error existente
+    const existingError = field.parentNode.querySelector('.error-message')
+    if (existingError) {
+        existingError.remove()
+    }
+    
+    // Agregar mensaje de error si existe
+    if (state === 'error' && message) {
+        const errorDiv = document.createElement('div')
+        errorDiv.className = 'error-message'
+        errorDiv.textContent = message
+        field.parentNode.appendChild(errorDiv)
+    }
+}
+
+// Función para validar email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+}
+
+// Función para validar contraseña
+function isValidPassword(password) {
+    const hasUpperCase = /[A-Z]/.test(password)
+    const hasNumbers = /\d/.test(password)
+    const hasMinLength = password.length >= 8
+    
+    return {
+        valid: hasUpperCase && hasNumbers && hasMinLength,
+        hasUpperCase,
+        hasNumbers,
+        hasMinLength
+    }
+}
+
+// Función para validar teléfono
+function isValidPhone(phone) {
+    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/
+    return phoneRegex.test(phone)
+}
+
+// Validación en tiempo real
+Object.keys(formFields).forEach(fieldName => {
+    const field = formFields[fieldName]
+    
+    field.addEventListener('blur', () => {
+        validateField(fieldName, field.value)
+    })
+    
+    field.addEventListener('input', () => {
+        // Limpiar estado de error mientras el usuario escribe
+        if (field.classList.contains('error')) {
+            setFieldState(field, '')
+        }
+    })
+})
+
+// Función de validación por campo
+function validateField(fieldName, value) {
+    const field = formFields[fieldName]
+    
+    switch(fieldName) {
+        case 'name':
+            if (value.trim().length < 2) {
+                setFieldState(field, 'error', 'El nombre debe tener al menos 2 caracteres')
+                return false
+            } else {
+                setFieldState(field, 'success')
+                return true
+            }
+            
+        case 'number':
+            if (!isValidPhone(value)) {
+                setFieldState(field, 'error', 'Ingresa un número de teléfono válido (mínimo 10 dígitos)')
+                return false
+            } else {
+                setFieldState(field, 'success')
+                return true
+            }
+            
+        case 'email':
+            if (!isValidEmail(value)) {
+                setFieldState(field, 'error', 'Ingresa un correo electrónico válido')
+                return false
+            } else {
+                setFieldState(field, 'success')
+                return true
+            }
+            
+        case 'password':
+            const passwordValidation = isValidPassword(value)
+            if (!passwordValidation.valid) {
+                let errorMessage = 'La contraseña debe tener:'
+                if (!passwordValidation.hasMinLength) errorMessage += ' • Mínimo 8 caracteres'
+                if (!passwordValidation.hasUpperCase) errorMessage += ' • Al menos una mayúscula'
+                if (!passwordValidation.hasNumbers) errorMessage += ' • Al menos un número'
+                setFieldState(field, 'error', errorMessage)
+                return false
+            } else {
+                setFieldState(field, 'success')
+                return true
+            }
+    }
+}
+
+// Event listener del formulario
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const name = document.querySelector('#name').value
-    const number = document.querySelector('#number').value
-    const email = document.querySelector('#email').value
-    const password = document.querySelector('#password').value
-
+    // Obtener valores
+    const formData = {
+        name: formFields.name.value.trim(),
+        number: formFields.number.value.trim(),
+        email: formFields.email.value.trim(),
+        password: formFields.password.value
+    }
+    
+    // Validar todos los campos
+    const isNameValid = validateField('name', formData.name)
+    const isNumberValid = validateField('number', formData.number)
+    const isEmailValid = validateField('email', formData.email)
+    const isPasswordValid = validateField('password', formData.password)
+    
+    // Verificar si todos los campos son válidos
+    if (!isNameValid || !isNumberValid || !isEmailValid || !isPasswordValid) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Campos Inválidos',
+            text: 'Por favor, corrige los errores en el formulario',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#007aff',
+            customClass: {
+                popup: 'swal2-popup-custom',
+                title: 'swal2-title-custom',
+                htmlContainer: 'swal2-html-container-custom',
+                confirmButton: 'swal2-confirm-custom'
+            }
+        })
+        return
+    }
+    
+    // Obtener usuarios existentes
     const Users = JSON.parse(localStorage.getItem('users')) || []
-
-    const isUserRegistered = Users.find(user => user.email === email)
-
-    const isNumberRegistered = Users.find(user => user.number=== number)
-
-    const isPasswordRegistred = Users.find(user => user.password===password)
-
-    const numerString = number.toString;
-
-     //---------Validaciones campos vacios-----------///
-
-    if(name==="" || number==="" || email==="" || password===""){
-        return Swal.fire('Tiene campos vacios, por favor, rellenarlos')
-    }
-
     
-
-    //------Valida contraseña : si existe, si no, que cumpla que tenga minimo 2 Mayusculas y 3 digitos-//
-
-
-    if(isPasswordRegistred){
-        return Swal.fire('Esta contraseña ya esta')
-    }else{
-        let mayuscul = password.match(/[A-Z]/g);
-        let digitos = password.match(/[0-9]/g)
-        let totalMayuscul = mayuscul ? mayuscul.length:0;
-        let totalDigitos = digitos ? digitos.length:0;
-        if(totalMayuscul<2 && totalDigitos<3){
-            return Swal.fire('Su contraseña necesita al menos dos mayusculas y 3 digitos')
-        }
+    // Verificar si el email ya existe
+    const isUserRegistered = Users.find(user => user.email === formData.email)
+    if (isUserRegistered) {
+        setFieldState(formFields.email, 'error', 'Este correo electrónico ya está registrado')
+        Swal.fire({
+            icon: 'error',
+            title: 'Email ya registrado',
+            text: 'Este correo electrónico ya está en uso. Intenta con otro.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#007aff',
+            customClass: {
+                popup: 'swal2-popup-custom',
+                title: 'swal2-title-custom',
+                htmlContainer: 'swal2-html-container-custom',
+                confirmButton: 'swal2-confirm-custom'
+            }
+        })
+        return
     }
-
-    //--------Valida si el email ya esta-------//
-
-    if(isUserRegistered) {
-        return Swal.fire('El usuario ya esta registrado! , intentalo con otro')
-    }
-
-    //--Verifica si el numero ingresado ya existe---///
-
-    if(isNumberRegistered){
-        return Swal.fire('Uppsss.. el numero ya esta registrado! , intentalo con otro')
-    }
-
-    //--------Validacion de longitud del numero------//
-
-    /*if(numerString.length<5){
-        return Swal.fire('No es un numero valido, digite un numero de longitud mas grande')
-    }*/
-
-    //--Se envia el objeto con los diferentes atributos del user-///
-
     
-    Users.push({name: name, number:number, email: email, password: password})
+    // Verificar si el teléfono ya existe
+    const isNumberRegistered = Users.find(user => user.number === formData.number)
+    if (isNumberRegistered) {
+        setFieldState(formFields.number, 'error', 'Este número de teléfono ya está registrado')
+        Swal.fire({
+            icon: 'error',
+            title: 'Teléfono ya registrado',
+            text: 'Este número de teléfono ya está en uso. Intenta con otro.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#007aff',
+            customClass: {
+                popup: 'swal2-popup-custom',
+                title: 'swal2-title-custom',
+                htmlContainer: 'swal2-html-container-custom',
+                confirmButton: 'swal2-confirm-custom'
+            }
+        })
+        return
+    }
+    
+    // Deshabilitar botón durante el proceso
+    const submitBtn = document.querySelector('input[type="submit"]')
+    submitBtn.disabled = true
+    submitBtn.value = 'Creando cuenta...'
+    
+    // Simular delay para mejor UX
+    setTimeout(() => {
+        // Agregar nuevo usuario
+        Users.push({
+            name: formData.name,
+            number: formData.number,
+            email: formData.email,
+            password: formData.password,
+            createdAt: new Date().toISOString()
+        })
+        
     localStorage.setItem('users', JSON.stringify(Users))
 
+        // Mostrar éxito con toast elegante
     Swal.fire({
-        title: 'Registro Exitoso',
-        timer: 2000,
+            icon: 'success',
+            title: '¡Cuenta Creada!',
+            text: 'Bienvenido a Performance Radio',
+            timer: 2500,
         timerProgressBar: true,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            customClass: {
+                popup: 'swal2-toast-custom',
+                title: 'swal2-title-custom',
+                htmlContainer: 'swal2-html-container-custom'
+            },
         didOpen: () => {
             Swal.showLoading()
         }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
+        }).then(() => {
             window.location.href = 'iniciosesionLS.html'
-        }
     })
+    }, 1000)
 })

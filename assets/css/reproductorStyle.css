@@ -562,3 +562,31 @@ main,
   transform-origin: center bottom;
   will-change: transform;
 }
+/* Mobile nav: keep header behind play bar until scroll */
+@media (max-width: 768px) {
+  .fixed-player + #header {
+    transform: translateY(-120%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 500 !important;
+  }
+
+  .fixed-player + #header.header-scrolled,
+  .fixed-player + #header.fixed-top {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 900 !important;
+  }
+
+  /* Asegurar que el menú móvil esté detrás del reproductor pero funcione */
+  .navbar-mobile {
+    z-index: 950 !important; /* Menor que el reproductor (1000) pero mayor que el header (900) */
+  }
+
+  /* El botón de toggle debe estar visible y funcional */
+  .mobile-nav-toggle {
+    z-index: 1001 !important; /* Mayor que el reproductor para ser clickeable */
+    position: relative !important;
+  }
+}

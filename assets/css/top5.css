@@ -576,7 +576,7 @@
 .song-item:nth-child(4) { animation-delay: 0.4s; }
 .song-item:nth-child(5) { animation-delay: 0.5s; }
 
-/* --- Estilos específicos para index_seo_perf.html --- */
+/* --- Estilos específicos para index.html (archivo principal) --- */
 .top5-hero__bg {
     position: absolute;
     top: 0;

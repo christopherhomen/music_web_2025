@@ -1,4 +1,4 @@
-const playPause = document.getElementById("play-radio");
+﻿const playPause = document.getElementById("play-radio");
 const playIcon = playPause.querySelector(".play-btn");
 const pauseIcon = playPause.querySelector(".pause-btn");
 const radioPlayerEl = document.querySelector('.radio-player');

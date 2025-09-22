@@ -1,0 +1,375 @@
+/**
+ * Diseño Moderno para Locutores
+ * Estilo inspirado en la imagen de referencia
+ * Layout: Imagen izquierda + Info derecha
+ */
+
+/* Variables CSS para el tema moderno */
+:root {
+  --modern-bg: #0a0a0a;
+  --modern-card-bg: #1a1a1a;
+  --modern-accent: #00d4ff;
+  --modern-accent-secondary: #ff6b35;
+  --modern-text: #ffffff;
+  --modern-text-secondary: #b0b0b0;
+  --modern-border: rgba(255, 255, 255, 0.1);
+  --modern-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --modern-glow: 0 0 30px rgba(0, 212, 255, 0.3);
+}
+
+/* Contenedor principal del locutor moderno */
+.locutor-modern {
+  background: var(--modern-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--modern-shadow);
+  border: 1px solid var(--modern-border);
+  position: relative;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.locutor-modern:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--modern-shadow), var(--modern-glow);
+}
+
+/* Grid layout: imagen izquierda + contenido derecho */
+.locutor-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 400px;
+  position: relative;
+}
+
+/* Sección de imagen (izquierda) */
+.locutor-image-section {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.locutor-image-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(0, 212, 255, 0.1) 0%, 
+    transparent 50%, 
+    rgba(255, 107, 53, 0.1) 100%);
+  z-index: 1;
+}
+
+.locutor-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--modern-accent);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.locutor-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+}
+
+/* Elementos decorativos de fondo */
+.locutor-image-section::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, var(--modern-accent), var(--modern-accent-secondary));
+  border-radius: 50%;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+/* Sección de información (derecha) */
+.locutor-info-section {
+  padding: 40px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Elementos decorativos de fondo */
+.locutor-info-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, var(--modern-accent), transparent);
+  border-radius: 50%;
+  opacity: 0.05;
+}
+
+.locutor-info-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(45deg, var(--modern-accent-secondary), transparent);
+  border-radius: 50%;
+  opacity: 0.05;
+}
+
+/* Título del programa */
+.program-title {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--modern-accent);
+  margin: 0 0 10px 0;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  position: relative;
+  z-index: 2;
+}
+
+/* Nombre del locutor */
+.locutor-name {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--modern-text);
+  margin: 0 0 15px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Información del país */
+.locutor-country {
+  font-size: 1rem;
+  color: var(--modern-text-secondary);
+  margin: 0 0 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Horario del programa */
+.program-schedule {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--modern-text);
+  margin: 0 0 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Descripción del programa */
+.program-description {
+  font-size: 1rem;
+  color: var(--modern-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Contenedor de botones */
+.locutor-buttons {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Botones de compra */
+.locutor-btn {
+  flex: 1;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.locutor-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.locutor-btn:hover::before {
+  left: 100%;
+}
+
+/* Botón principal (Cuña) */
+.locutor-btn-primary {
+  background: linear-gradient(135deg, var(--modern-accent) 0%, #0099cc 100%);
+  color: white;
+  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+}
+
+.locutor-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+}
+
+/* Botón secundario (Promoción) */
+.locutor-btn-secondary {
+  background: linear-gradient(135deg, var(--modern-accent-secondary) 0%, #e55a2b 100%);
+  color: white;
+  box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+}
+
+.locutor-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(255, 107, 53, 0.4);
+}
+
+/* Iconos de botones */
+.locutor-btn i {
+  font-size: 1.2rem;
+}
+
+/* Grid de 1 columna para desktop (un locutor por fila) */
+@media (min-width: 1200px) {
+  .locutores-grid {
+    display: block;
+    margin: 40px 0;
+  }
+  
+  .locutor-modern {
+    margin: 30px 0;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+  .locutores-grid {
+    display: block;
+  }
+  
+  .locutor-modern {
+    margin: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .locutor-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .locutor-image-section {
+    height: 250px;
+  }
+  
+  .locutor-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .locutor-info-section {
+    padding: 30px 20px;
+  }
+  
+  .program-title {
+    font-size: 2rem;
+  }
+  
+  .locutor-buttons {
+    flex-direction: column;
+  }
+  
+  .locutor-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .program-title {
+    font-size: 2rem;
+  }
+  
+  .locutor-name {
+    font-size: 1.3rem;
+  }
+  
+  .locutor-info-section {
+    padding: 20px 15px;
+  }
+}
+
+/* Animaciones de entrada */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.locutor-image-section {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.locutor-info-section {
+  animation: slideInRight 0.8s ease-out;
+}
+
+/* Efecto de partículas flotantes */
+.locutor-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}

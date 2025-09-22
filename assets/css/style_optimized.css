@@ -357,6 +357,8 @@ h1, h2, h3, h4, h5, h6{
   display: none;
   line-height: 0;
   transition: 0.5s;
+  z-index: 1001; /* Mayor que el reproductor para ser clickeable */
+  position: relative;
 }
 @media (max-width: 991px){
   .mobile-nav-toggle{
@@ -375,7 +377,7 @@ h1, h2, h3, h4, h5, h6{
   bottom: 0;
   background: rgba(0, 0, 0, 0.9);
   transition: 0.3s;
-  z-index: 999;
+  z-index: 950; /* Menor que el reproductor (1000) pero mayor que el header (900) */
 }
 .navbar-mobile .mobile-nav-toggle{
   position: absolute;
@@ -393,6 +395,7 @@ h1, h2, h3, h4, h5, h6{
   background-color: #f0f0f0 !important;
   overflow-y: auto;
   transition: 0.3s;
+  z-index: 950; /* Asegurar que esté detrás del reproductor */
 }
 .navbar-mobile a, .navbar-mobile a:focus{
   padding: 10px 20px;
@@ -1282,7 +1285,7 @@ body{ background:#1f1f1f !important; }
   float: left;
   width: 44px;
   height: 44px;
-  background: #1212128f6;
+  background: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1577,16 +1580,13 @@ body{ background:#1f1f1f !important; }
 .whatsapp{
   animation: heartbeat 1s infinite;
 }
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;
-500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap");
 :root{
   --background: #1e1e1e;
   --gray: #797d7f;
 }
 *, *::before, *::after{
   box-sizing: border-box;
-}
-*, ::after, ::before{
 }
 input[type=text], input[type=password], input[type=number], input[type=email], select{
   width: 100%;
@@ -2070,11 +2070,11 @@ table{
   }
 }
 body{
-  background-color: #1a1a1a !important !important;
+  background-color: #1a1a1a !important;
 }
 .contact .php-email-form input, .contact .php-email-form textarea{
   background: #2c2c2c !important;
-  color: #f0f0f0 !important !important;
+  color: #f0f0f0 !important;
   border: 1px solid #444444 !important;
 }
 .contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder{
@@ -2082,7 +2082,7 @@ body{
 }
 .contact .php-email-form button[type=submit]{
   background: #ff7f5d !important;
-  color: #f0f0f0 !important !important;
+  color: #f0f0f0 !important;
 }
 .contact .php-email-form button[type=submit]:hover{
   background: #ff9377 !important;
@@ -2457,6 +2457,35 @@ body{
 .navbar-mobile a,
 .navbar-mobile a:focus{
   font-weight: 700 !important;
+}
+
+/* Mejoras para el menú móvil deslizable */
+@media (max-width: 768px) {
+  /* Asegurar que el botón de toggle sea siempre clickeable */
+  .mobile-nav-toggle {
+    z-index: 1001 !important;
+    position: relative !important;
+    pointer-events: auto !important;
+  }
+
+  /* Mejorar la visibilidad del menú móvil */
+  .navbar-mobile {
+    z-index: 950 !important;
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+  }
+
+  /* Asegurar que los elementos del menú sean clickeables */
+  .navbar-mobile ul {
+    z-index: 950 !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar-mobile a {
+    pointer-events: auto !important;
+    z-index: 951 !important;
+    position: relative !important;
+  }
 }
 
 /* REGLA DE MÁXIMA PRIORIDAD - FORZAR OCULTACIÓN DEL HEADER EN MÓVIL */

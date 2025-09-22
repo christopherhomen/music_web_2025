@@ -22,45 +22,42 @@ class UnifiedStreamProcessor {
     this.cache = new Map();
     this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 horas
     
-    // Usar configuración externa si está disponible
-    if (window.UnifiedStreamConfig) {
-      this.config = window.UnifiedStreamConfig.general;
-      this.badWords = new Set(window.UnifiedStreamConfig.badWords);
-      this.apis = window.UnifiedStreamConfig.apis;
-      this.cacheExpiry = window.UnifiedStreamConfig.cache.expiry;
-      console.log('✅ Usando configuración externa de UnifiedStreamConfig');
-    } else {
-      // Configuración por defecto si no hay configuración externa
-      this.config = {
-        debounceDelay: 100,
-        maxRetries: 2,
-        timeout: 3000,
-        enableEnrichment: false
-      };
-      this.badWords = new Set([
-        'intérprete desconocido', 'interprete desconocido',
-        'artista desconocido', 'desconocido', 'unknown artist',
-        'unknown', 'n/a', 'no disponible', 'not available',
-        'sin datos', 'no data', 'título desconocido', 'title unknown',
-        'artist unknown', 'no artist', 'sin artista'
-      ]);
-      this.apis = {
-        spotify: { clientId: 'f1b16c2196f54bc5af6bebb3dcdcb811', clientSecret: '8e271fe82c07474ab3b3d591e3eece49', enabled: true },
-        appleMusic: { enabled: true },
-        lastFm: { apiKey: '21f84fcdb8652dccff838fbbb408d91e', enabled: true },
-        youtube: { apiKey: 'AIzaSyCO5F3yenpdk4j1zknsu3rn3NKYzoTvbBA', enabled: true }
-      };
-      console.log('⚠️ Usando configuración por defecto (UnifiedStreamConfig no encontrado)');
-    }
+    // Configuración optimizada
+    this.config = {
+      debounceDelay: 100, // Reducido de 120ms
+      maxRetries: 2,
+      timeout: 3000,
+      enableEnrichment: false // Por defecto deshabilitado
+    };
     
-    // Lista de nombres de locutores conocidos
-    this.knownLocutors = [
-      'david', 'flores', 'david flores',
-      'maria', 'jose', 'carlos', 'ana', 'luis', 'patricia',
-      'ricardo', 'fernando', 'alejandra', 'miguel', 'sofia',
-      'andres', 'carolina', 'juan', 'valentina', 'sebastian',
-      'camila', 'diego', 'natalia', 'alejandro', 'isabella'
-    ];
+    // Palabras a filtrar (expandidas)
+    this.badWords = new Set([
+      'intérprete desconocido', 'interprete desconocido',
+      'artista desconocido', 'desconocido', 'unknown artist',
+      'unknown', 'n/a', 'no disponible', 'not available',
+      'sin datos', 'no data', 'título desconocido', 'title unknown',
+      'artist unknown', 'no artist', 'sin artista'
+    ]);
+    
+    // Configuración de APIs (compatible con sistema existente)
+    this.apis = {
+      spotify: {
+        clientId: 'f1b16c2196f54bc5af6bebb3dcdcb811',
+        clientSecret: '8e271fe82c07474ab3b3d591e3eece49',
+        enabled: true
+      },
+      appleMusic: {
+        enabled: true
+      },
+      lastFm: {
+        apiKey: '21f84fcdb8652dccff838fbbb408d91e',
+        enabled: true
+      },
+      youtube: {
+        apiKey: 'AIzaSyCO5F3yenpdk4j1zknsu3rn3NKYzoTvbBA',
+        enabled: true
+      }
+    };
     
     this.init();
   }
@@ -171,8 +168,6 @@ class UnifiedStreamProcessor {
   cleanText(text) {
     if (!text) return 'Performance Radio';
     
-    console.log('🧹 Limpiando texto:', text);
-    
     // Normalizar y limpiar
     const normalized = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     
@@ -190,10 +185,6 @@ class UnifiedStreamProcessor {
       
       const isValid = !containsBadWord && lowerPart.length > 0 && lowerPart !== 'desconocido';
       
-      if (!isValid) {
-        console.log('🚫 Palabra filtrada:', lowerPart);
-      }
-      
       return isValid;
     });
     
@@ -206,33 +197,33 @@ class UnifiedStreamProcessor {
     result = result.replace(/\s*[-–—:]\s*[-–—:]\s*/, ' - '); // Limpiar separadores dobles
     
     const finalResult = result || 'Performance Radio';
-    console.log('✅ Texto limpio:', text, '→', finalResult);
+    
+    // Solo mostrar log si el texto cambió significativamente
+    if (finalResult !== text && finalResult !== 'Performance Radio') {
+      console.log('🧹 Texto limpiado:', text, '→', finalResult);
+    }
     
     return finalResult;
   }
   
   async updateImage(text) {
-    // Mostrar imagen por defecto inmediatamente
-    this.imgElement.src = 'assets/img/locutor/default.JPG';
-    
-    // Buscar imagen optimizada
+    // Buscar imagen optimizada PRIMERO
     const imageUrl = await this.findImage(text);
     if (imageUrl) {
       this.imgElement.src = imageUrl;
       console.log('🖼️ Imagen encontrada:', imageUrl);
+    } else {
+      // Solo mostrar imagen por defecto si NO se encontró ninguna imagen
+      this.imgElement.src = 'assets/img/locutor/default.JPG';
+      console.log('🖼️ Usando imagen por defecto');
     }
   }
   
   async findImage(text) {
-    // Cache check - pero solo para imágenes externas, no para locutores
+    // Cache check
     const cacheKey = text.toLowerCase();
     const cached = this.cache.get(cacheKey);
-    
-    // Si detectamos nombres de locutores, no usar cache para forzar búsqueda local
-    const locutorNames = this.detectLocutorNames(text);
-    if (locutorNames.length > 0) {
-      console.log('🎤 Detectados locutores, saltando cache para búsqueda local');
-    } else if (cached && (Date.now() - cached.timestamp) < this.cacheExpiry) {
+    if (cached && (Date.now() - cached.timestamp) < this.cacheExpiry) {
       console.log('💾 Cache hit:', cacheKey);
       return cached.url;
     }
@@ -241,19 +232,39 @@ class UnifiedStreamProcessor {
     const words = this.extractSearchWords(text);
     if (words.length === 0) return null;
     
-    // Buscar en orden de prioridad (configurable)
-    const sources = this.getSourcesByPriority();
+    // PRIMERO: Buscar SOLO en local
+    console.log('🔍 Buscando PRIMERO en imágenes locales...');
+    try {
+      const localUrl = await this.searchInSource('local', words);
+      if (localUrl) {
+        // Cache result
+        this.cache.set(cacheKey, {
+          url: localUrl,
+          timestamp: Date.now(),
+          source: 'local'
+        });
+        console.log('🏠 Imagen local encontrada, NO buscando en otras fuentes:', localUrl);
+        return localUrl;
+      }
+    } catch (error) {
+      console.warn('❌ Error en búsqueda local:', error);
+    }
     
-    for (const source of sources) {
+    // SEGUNDO: Solo si NO encontró en local, buscar en otras fuentes
+    console.log('🌐 No se encontró imagen local, buscando en APIs externas...');
+    const externalSources = this.getSourcesByPriority().filter(source => source !== 'local');
+    
+    for (const source of externalSources) {
       try {
         const url = await this.searchInSource(source, words);
         if (url) {
           // Cache result
           this.cache.set(cacheKey, {
             url: url,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            source: source
           });
-          console.log('✅ Imagen encontrada en', source, ':', url);
+          console.log('🌐 Imagen encontrada en', source, ':', url);
           return url;
         }
       } catch (error) {
@@ -265,47 +276,29 @@ class UnifiedStreamProcessor {
   }
   
   extractSearchWords(text) {
-    // Detectar nombres de locutores comunes
-    const locutorNames = this.detectLocutorNames(text);
-    if (locutorNames.length > 0) {
-      console.log('🎤 Nombres de locutores detectados:', locutorNames);
-      return locutorNames;
-    }
+    // Limpiar y normalizar texto
+    const normalized = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     
-    // Extracción normal de palabras
-    return text.split(' ')
+    // Separar por espacios y filtrar
+    const words = normalized.split(/\s+/)
       .filter(word => {
         const clean = word.toLowerCase().trim();
         return clean.length > 2 && !this.badWords.has(clean);
-      })
-      .slice(0, 4); // Limitar a 4 palabras para eficiencia
-  }
-  
-  detectLocutorNames(text) {
-    const words = text.toLowerCase().split(/\s+/);
-    const detectedNames = [];
+      });
     
-    // Buscar nombres individuales
-    for (const word of words) {
-      const cleanWord = word.replace(/[^a-záéíóúñ]/g, '');
-      if (this.knownLocutors.includes(cleanWord) && cleanWord.length > 2) {
-        detectedNames.push(cleanWord);
-      }
+    // Para locutores, priorizar nombres propios
+    const locutorKeywords = ['desde', 'ciudad', 'mexico', 'colombia', 'argentina', 'españa', 'venezuela'];
+    const isLocutor = locutorKeywords.some(keyword => 
+      text.toLowerCase().includes(keyword)
+    );
+    
+    if (isLocutor) {
+      // Para locutores, tomar más palabras para mejor coincidencia
+      return words.slice(0, 8);
     }
     
-    // Buscar combinaciones de nombres (ej: "david flores")
-    for (let i = 0; i < words.length - 1; i++) {
-      const combination = words[i] + ' ' + words[i + 1];
-      const cleanCombination = combination.replace(/[^a-záéíóúñ\s]/g, '');
-      if (this.knownLocutors.includes(cleanCombination)) {
-        // Agregar tanto la combinación con espacio como con guión bajo
-        detectedNames.push(cleanCombination);
-        detectedNames.push(cleanCombination.replace(' ', '_'));
-      }
-    }
-    
-    // Priorizar nombres más largos (más específicos)
-    return detectedNames.sort((a, b) => b.length - a.length);
+    // Para música, limitar a 4 palabras
+    return words.slice(0, 4);
   }
   
   // Obtener fuentes ordenadas por prioridad
@@ -349,49 +342,132 @@ class UnifiedStreamProcessor {
   
   // Búsqueda en imágenes locales optimizada
   async searchLocalImages(words) {
-    console.log('🔍 Buscando imágenes locales para:', words);
+    // Detectar si es un locutor
+    const isLocutor = this.isLocutor(words.join(' '));
     
-    // Estrategia 1: Búsqueda directa por nombres de locutores
-    for (const word of words) {
-      // Limpiar el nombre para búsqueda
-      const cleanWord = word.toLowerCase().replace(/[^a-záéíóúñ_]/g, '');
-      const imagePath = `assets/img/locutor/${cleanWord}.JPG`;
-      console.log('🎤 Probando imagen de locutor:', imagePath);
+    let searchStrategies = [];
+    
+    if (isLocutor) {
+      // Para locutores, usar estrategias específicas y más rápidas
+      searchStrategies = this.generateLocutorStrategies(words);
+    } else {
+      // Estrategias generales para música (más limitadas para velocidad)
+      searchStrategies = [
+        // 1. Buscar nombre completo
+        words.join('_').toLowerCase(),
+        
+        // 2. Buscar solo nombre y apellido
+        words.slice(0, 2).join('_').toLowerCase(),
+        
+        // 3. Buscar solo nombre
+        words[0].toLowerCase()
+      ];
+    }
+    
+    // Eliminar duplicados y filtrar vacíos
+    const uniqueStrategies = [...new Set(searchStrategies)].filter(s => s && s.length > 0);
+    
+    // Buscar con timeout más corto para local
+    const searchPromises = uniqueStrategies.map(async (strategy) => {
+      const imagePath = `assets/img/locutor/${strategy}.JPG`;
       
       try {
-        const response = await fetch(imagePath, { method: 'HEAD' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1000); // 1 segundo timeout
+        
+        const response = await fetch(imagePath, { 
+          method: 'HEAD',
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
         if (response.ok) {
-          console.log('✅ Imagen de locutor encontrada:', imagePath);
           return imagePath;
-        } else {
-          console.log(`   ❌ No existe: ${imagePath} (${response.status})`);
         }
       } catch (e) {
-        console.log(`   ❌ Error verificando: ${imagePath}`);
+        // Continuar con siguiente estrategia
       }
+      return null;
+    });
+    
+    // Esperar la primera respuesta exitosa
+    try {
+      const results = await Promise.allSettled(searchPromises);
+      for (const result of results) {
+        if (result.status === 'fulfilled' && result.value) {
+          console.log('🏠 Imagen local encontrada:', result.value);
+          return result.value;
+        }
+      }
+    } catch (error) {
+      console.warn('Error en búsqueda local:', error);
     }
     
-    // Estrategia 2: Búsqueda por combinaciones (método original)
+    return null;
+  }
+  
+  // Generar combinaciones de palabras para búsqueda local
+  generateWordCombinations(words, minLength, maxLength) {
+    const combinations = [];
+    
     for (let i = 0; i < words.length; i++) {
-      for (let j = i + 1; j <= words.length; j++) {
+      for (let j = i + minLength; j <= Math.min(i + maxLength, words.length); j++) {
         const combination = words.slice(i, j).join('_').toLowerCase();
-        const imagePath = `assets/img/locutor/${combination}.JPG`;
-        
-        // Verificar existencia sin cargar imagen
-        try {
-          const response = await fetch(imagePath, { method: 'HEAD' });
-          if (response.ok) {
-            console.log('✅ Imagen local encontrada:', imagePath);
-            return imagePath;
-          }
-        } catch (e) {
-          // Continuar con siguiente combinación
+        if (combination.length > 0) {
+          combinations.push(combination);
         }
       }
     }
     
-    console.log('❌ No se encontraron imágenes locales');
-    return null;
+    return combinations;
+  }
+  
+  // Detectar si el texto es de un locutor
+  isLocutor(text) {
+    const locutorKeywords = [
+      'desde', 'ciudad', 'mexico', 'colombia', 'argentina', 'españa', 'venezuela',
+      'locutor', 'locutora', 'conductor', 'conductora', 'presentador', 'presentadora',
+      'radio', 'estudio', 'transmisión', 'en vivo', 'live'
+    ];
+    
+    const lowerText = text.toLowerCase();
+    return locutorKeywords.some(keyword => lowerText.includes(keyword));
+  }
+  
+  // Generar estrategias específicas para locutores (optimizadas para velocidad)
+  generateLocutorStrategies(words) {
+    const strategies = [];
+    
+    // 1. Solo nombre y apellido (más común para locutores)
+    if (words.length >= 2) {
+      strategies.push(words.slice(0, 2).join('_').toLowerCase());
+    }
+    
+    // 2. Solo nombre
+    strategies.push(words[0].toLowerCase());
+    
+    // 3. Nombre completo (solo si es corto)
+    if (words.length <= 4) {
+      strategies.push(words.join('_').toLowerCase());
+    }
+    
+    // 4. Nombre + "desde" + ciudad (solo si es corto)
+    const desdeIndex = words.findIndex(w => w.toLowerCase() === 'desde');
+    if (desdeIndex > 0 && desdeIndex < words.length - 1) {
+      const namePart = words.slice(0, desdeIndex).join('_').toLowerCase();
+      if (namePart.length <= 20) { // Solo si el nombre no es muy largo
+        strategies.push(namePart);
+        strategies.push(`${namePart}_desde_${words.slice(desdeIndex + 1).join('_').toLowerCase()}`);
+      }
+    }
+    
+    // 5. Solo las primeras 2-3 palabras (más rápidas)
+    if (words.length >= 3) {
+      strategies.push(words.slice(0, 3).join('_').toLowerCase());
+    }
+    
+    return [...new Set(strategies)].filter(s => s && s.length > 0 && s.length <= 30);
   }
   
   // Búsqueda en Last.fm
@@ -608,40 +684,6 @@ class UnifiedStreamProcessor {
     console.log('🧹 Sistema Unificado destruido');
   }
   
-  // Función para agregar nombres de locutores
-  addLocutorNames(names) {
-    if (Array.isArray(names)) {
-      this.knownLocutors = [...this.knownLocutors, ...names.map(name => name.toLowerCase())];
-      console.log('🎤 Nombres de locutores agregados:', names);
-    }
-  }
-  
-  // Función para obtener lista de locutores conocidos
-  getKnownLocutors() {
-    return this.knownLocutors;
-  }
-  
-  // Función para limpiar cache de locutores
-  clearLocutorCache() {
-    const keysToDelete = [];
-    for (const [key, value] of this.cache.entries()) {
-      // Si la clave contiene nombres de locutores conocidos, eliminar del cache
-      for (const locutor of this.knownLocutors) {
-        if (key.includes(locutor.toLowerCase())) {
-          keysToDelete.push(key);
-          break;
-        }
-      }
-    }
-    
-    keysToDelete.forEach(key => {
-      this.cache.delete(key);
-      console.log('🗑️ Cache eliminado para locutor:', key);
-    });
-    
-    console.log(`🧹 Cache limpiado: ${keysToDelete.length} entradas de locutores eliminadas`);
-  }
-  
   // Método para obtener estadísticas
   getStats() {
     return {
@@ -725,60 +767,5 @@ window.showSearchOrder = function() {
   } else {
     console.error('❌ Sistema unificado no está inicializado');
     return [];
-  }
-};
-
-// Funciones para gestionar nombres de locutores
-window.addLocutorNames = function(names) {
-  if (streamProcessor) {
-    streamProcessor.addLocutorNames(names);
-    console.log('🎤 Nombres agregados. Lista actual:', streamProcessor.getKnownLocutors());
-  } else {
-    console.error('❌ Sistema unificado no está inicializado');
-  }
-};
-
-window.getKnownLocutors = function() {
-  if (streamProcessor) {
-    const locutors = streamProcessor.getKnownLocutors();
-    console.log('🎤 Locutores conocidos:', locutors);
-    return locutors;
-  } else {
-    console.error('❌ Sistema unificado no está inicializado');
-    return [];
-  }
-};
-
-// Función para probar detección de locutores
-window.testLocutorDetection = function(text) {
-  if (streamProcessor) {
-    const detected = streamProcessor.detectLocutorNames(text);
-    console.log(`🎤 Texto: "${text}"`);
-    console.log(`🎤 Locutores detectados:`, detected);
-    return detected;
-  } else {
-    console.error('❌ Sistema unificado no está inicializado');
-    return [];
-  }
-};
-
-// Función para limpiar cache de locutores
-window.clearLocutorCache = function() {
-  if (streamProcessor) {
-    streamProcessor.clearLocutorCache();
-    console.log('🧹 Cache de locutores limpiado');
-  } else {
-    console.error('❌ Sistema unificado no está inicializado');
-  }
-};
-
-// Función para forzar búsqueda de imagen (sin cache)
-window.forceImageSearch = function(text) {
-  if (streamProcessor) {
-    console.log(`🔍 Forzando búsqueda de imagen para: "${text}"`);
-    return streamProcessor.findImage(text);
-  } else {
-    console.error('❌ Sistema unificado no está inicializado');
-    return null;
   }
 };

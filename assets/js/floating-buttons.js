@@ -2,28 +2,28 @@
 // FLOATING BUTTONS - APPLE PREMIUM INTERACTIONS
 // ==========================================
 
-// console.log('Floating Buttons script starting...');
+console.log('Floating Buttons script starting...');
 
 // Función para inicializar los botones flotantes
 function initFloatingButtons() {
     const whatsappBtn = document.querySelector('.whatsapp-btn');
     const backToTopBtn = document.querySelector('.back-to-top-btn');
     
-    // console.log('Initializing floating buttons...');
+    console.log('Initializing floating buttons...');
     
     // Inicializar botón de WhatsApp
     if (whatsappBtn) {
         initWhatsAppButton(whatsappBtn);
-        // console.log('WhatsApp button initialized');
+        console.log('WhatsApp button initialized');
     }
     
     // Inicializar botón de Back to Top
     if (backToTopBtn) {
         initBackToTopButton(backToTopBtn);
-        // console.log('Back to Top button initialized');
+        console.log('Back to Top button initialized');
     }
     
-    // console.log('All floating buttons initialized successfully');
+    console.log('All floating buttons initialized successfully');
 }
 
 // Función para inicializar el botón de WhatsApp
@@ -133,7 +133,7 @@ function addClickAnimation(button) {
 
 // Función para pausar animaciones durante el scroll
 function pauseAnimationsDuringScroll() {
-    // console.log('⏸️ Pausando animaciones durante scroll...');
+    console.log('⏸️ Pausando animaciones durante scroll...');
     
     // Pausar animaciones CSS
     const style = document.createElement('style');
@@ -154,7 +154,7 @@ function pauseAnimationsDuringScroll() {
 
 // Función para reanudar animaciones después del scroll
 function resumeAnimationsAfterScroll() {
-    // console.log('▶️ Reanudando animaciones después del scroll...');
+    console.log('▶️ Reanudando animaciones después del scroll...');
     
     const pauseStyle = document.getElementById('scroll-pause-styles');
     if (pauseStyle) {
@@ -162,13 +162,42 @@ function resumeAnimationsAfterScroll() {
     }
 }
 
-// Función para scroll suave hacia arriba
+// Función para scroll suave hacia arriba OPTIMIZADA
 function smoothScrollToTop() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
-    // console.log('🚀 Iniciando scroll suave desde:', scrollTop, 'px');
+    console.log('🚀 Iniciando scroll suave optimizado desde:', scrollTop, 'px');
     
-    const duration = 800; // Duración en ms
+    // Método 1: Usar CSS scroll-behavior (más eficiente)
+    if (scrollTop < 1000) {
+        console.log('📱 Usando CSS scroll-behavior para scroll corto');
+        
+        // Agregar scroll-behavior temporalmente
+        const style = document.createElement('style');
+        style.id = 'smooth-scroll-style';
+        style.textContent = `
+            html {
+                scroll-behavior: smooth !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Scroll suave
+        window.scrollTo(0, 0);
+        
+        // Remover el estilo después del scroll
+        setTimeout(() => {
+            style.remove();
+            console.log('✅ Scroll CSS completado');
+        }, 1000);
+        
+        return;
+    }
+    
+    // Método 2: JavaScript personalizado para scroll largo
+    console.log('⚡ Usando JavaScript personalizado para scroll largo');
+    
+    const duration = 800; // Duración fija en ms
     const startTime = performance.now();
     let frameCount = 0;
     
@@ -191,7 +220,7 @@ function smoothScrollToTop() {
         
         // Debug cada 20 frames para no saturar la consola
         if (frameCount % 20 === 0) {
-            // console.log(`📊 Frame ${frameCount}: Progress: ${(progress * 100).toFixed(1)}%, Scroll: ${currentScroll.toFixed(0)}px`);
+            console.log(`📊 Frame ${frameCount}: Progress: ${(progress * 100).toFixed(1)}%, Scroll: ${currentScroll.toFixed(0)}px`);
         }
         
         // Scroll suave usando scrollTo en lugar de scrollBy
@@ -200,7 +229,7 @@ function smoothScrollToTop() {
         if (progress < 1) {
             requestAnimationFrame(scrollStepFunction);
         } else {
-            // console.log('✅ Scroll completado en', frameCount, 'frames');
+            console.log('✅ Scroll completado en', frameCount, 'frames');
             // Asegurar que llegamos exactamente al top
             window.scrollTo(0, 0);
             

@@ -1,13 +1,12 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  
-
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Login</title>
+  <title>Iniciar Sesión - Performance Radio</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <!-- Favicons -->
@@ -17,109 +16,134 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <!-- whatsapp button -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <!--  Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link href="./assets/css/loginstyle.css" rel="stylesheet">
+  <!-- CSS esenciales -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/reproductorStyle.css" rel="stylesheet">
+  
+  <!-- CSS Apple Style -->
+  <link rel="stylesheet" href="assets/css/login-apple-style.css">
 </head>
 
 <body>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    
-    <div class="hero-container">
-      <!-- Agregado -->
-      <video autoplay muted loop id="myVideo" class="content-video">
-        <source src="assets/video/video3.mp4" type="video/mp4">
-      </video>
-      <div class="hero-container-play">
-        <!-- <div class="logo-banner" ><img src="assets/img/logo/logo1.png" class="logo-banner-mobile" id="logo-header">
-        </div> -->
-        <a href="#" class="logo me-auto me-lg-0"><img src="assets/img/logo/logo1.png" alt="" class="img-fluid"></a>
-        <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
-
-        <!-- boton play -->
-        <!-- <a class="btn-get-started scrollto"> -->
-        <a>
-
-          <audio controls="controls"> 
-            <source src="https://cp9.serverse.com/proxy/perfor?mp=/stream;" type="audio/mpeg" /> 
-          </audio> 
-        </a>
-      
+  <!-- ==========================================
+       FIXED RADIO PLAYER
+       ========================================== -->
+  <div class="fixed-player">
+    <div class="radio-player">
+      <!-- Imagen del locutor/canción a la izquierda -->
+      <div class="radio-image">
+        <img loading="lazy" src="assets/img/locutor/default.JPG" alt="Imagen del locutor" class="player__img" id="locutor-image" />
       </div>
+          
+      <!-- Texto dinámico del stream -->
+      <div class="radio-text">
+        <h2 class="cc_streaminfo" data-type="rawmeta" data-username="perfor">Performance Radio</h2>
+        <h4 class="radio-subtitle">Al aire</h4>
+      </div>
+          
+      <!-- Controles centrados: Play + Ecualizador -->
+      <div class="center-controls">
+        <!-- Botón de Play/Pausa -->
+        <div class="play-button" id="play-radio">
+          <button type="button" class="btn-play" aria-label="Reproducir/Pausar radio">
+            <i class="fas fa-play play-btn"></i>
+            <i class="fas fa-pause pause-btn hide"></i>
+          </button>
+        </div>
+            
+        <!-- Waveform animado -->
+        <div class="waveform" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+          
+      <!-- Logo de la radio a la derecha -->
+      <div class="radio-logo">
+        <img loading="lazy" src="assets/img/logo/logo1.png" alt="Radio Logo" id="radio-logo" />
+      </div>
+          
+      <!-- Control de volumen oculto para no romper scripts -->
+      <div class="volume-control hide">
+        <input type="range" id="range" min="0" max="100" value="50" step="1" aria-label="Volumen" />
+        <i class="fas fa-volume-up"></i>
+      </div>
+          
+      <!-- Audio element -->
+      <audio id="audio" style="display:none;"></audio>
     </div>
-  
-  </section><!-- End Hero -->
+  </div>
+
+  <!-- Hero Section simplificado -->
+  <section id="hero" style="display: none;">
+    <!-- Sección oculta para evitar conflictos -->
+  </section>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center ">
-    <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+  <header id="header">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo/logo3.png" alt="Performance Radio" class="img-fluid">
+      </a>
 
-      <!-- <h1 class="logo me-auto me-lg-0"><a href="index.html"><img src="assets/img/logo/logo3.png" alt=""></a></h1> -->
-      <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="#" class="logo me-auto me-lg-0"><img src="assets/img/logo/logo3.png" alt="" class="img-fluid"></a>
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
+      <!-- Main Navigation -->
+      <nav id="navbar" class="navbar">
         <ul>
-            <!-- <li><a class="nav-link scrollto " th:href="@{/}">Inicio</a></li> -->
-          <!-- <li><a class="nav-link scrollto" th:href="@{/#about}">Acerca de</a></li> -->
-          <li><a class="nav-link scrollto " href="index.html">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="index.html#hero">Inicio</a></li>
           <li><a class="nav-link scrollto" href="index.html#about">Acerca de</a></li>
           <li><a class="nav-link scrollto" href="index.html#services">Servicios</a></li>
-          <!-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> -->
           <li><a class="nav-link scrollto" href="index.html#team">Nuestro Equipo</a></li>
           <li><a class="nav-link scrollto" href="index.html#contact">Contacto</a></li>
-
-          <li class="dropdown" ><a class="active" href="#"><span>Usuario</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+              <span>Usuario</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
               <li><a href="iniciosesionLS.html">Iniciar Sesión</a></li>
               <li><a href="registrosesionLS.html">Registro</a></li>
-          
             </ul>
           </li>
- 
-
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-      <div class="header-social-links d-flex align-items-center">
-        <a href="https://www.facebook.com/performanceradio" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/performanceradio/" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
-        <a href="https://twitter.com/performanceradi" class="twitter" target="_blank"><i class="bi bi-twitter"></i></a>
-        <a href="https://www.youtube.com/channel/UC_ir-CuCJm7gMEeXdegjq2Q" class="youtube" target="_blank"><i class="bi bi-youtube"></i></a>
+      <!-- Social Media Links -->
+      <div class="header-social-links">
+        <a href="https://www.facebook.com/performanceradio" class="facebook" target="_blank">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/performanceradio/" class="instagram" target="_blank">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://twitter.com/performanceradi" class="twitter" target="_blank">
+          <i class="bi bi-twitter"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UC_ir-CuCJm7gMEeXdegjq2Q" class="youtube" target="_blank">
+          <i class="bi bi-youtube"></i>
+        </a>
       </div>
-
     </div>
-<!-- PLAYER
-    <script src="https://apps.elfsight.com/p/platform.js" id="player" defer></script>
-<div class="elfsight-app-4a702fbd-e4fd-4cae-896a-2c3ddcb2b1c2"></div> -->
   </header><!-- End Header -->
 
   <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
-    <!--<section id="breadcrumbs" class="breadcrumbs">
+    <section class="breadcrumbs">
       <div class="container">
 
-        <ol>
-          <li><a th:href="@{/}">Inicio</a></li>
-          <li>Usuario - Inicio Sesión</li>
-        </ol>
-        <h2>Bienvenido</h2>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Iniciar Sesión</h2>
+          <ol>
+            <li><a href="index.html">Inicio</a></li>
+            <li>Iniciar Sesión</li>
+          </ol>
+        </div>
 
       </div>
     </section><!-- End Breadcrumbs -->
@@ -129,29 +153,27 @@
         <div id="logo-registro">
           <img src="assets/img/logo/logo3.png" alt="" id="imagenlogo">
         </div>
-        <!-- <p>
-          Bienvenidos
-        </p> -->
-  
         <div class="formularioiniciosesion">
-          <h2 id="encabezado-registro">Inicio Sesión</h2>
-          <div align="center" >
-            <!--<img class="img-fluid logo me-auto me-lg-0" src="assets/img/logo/user5.png">
-            --></div>
-          <section>
-            <!-- <h2>Login</h2> -->
-            <form id="loginForm">
-              <i class="fa-solid fa-user-tie fa-bounce"></i>
-                <label>Email</label>
-                <input type="email" placeholder="..." id="email" required autofocus>
-                <i class="fa-solid fa-user-large-slash fa-beat-fade"></i>
-                <label>Contraseña</label>
-                <input type="password" placeholder="..." id="password" required>
-                <input type="submit" value="Ingresar">
-            </form>
-            <p>No tienes una cuenta? <a href="registrosesionLS.html">Registro</a></p>
-        </section>
-        
+          <h2 id="encabezado-registro">Iniciar Sesión</h2>
+          <p>Bienvenido de vuelta a Performance Radio</p>
+          
+          <form method="post" action="@{/login}" id="loginForm">
+            <div class="form-group">
+              <i class="fa-solid fa-user"></i>
+              <label for="username">Usuario</label>
+              <input type="text" id="username" name="username" class="campos" placeholder="Ingresa tu usuario" required>
+            </div>
+            
+            <div class="form-group">
+              <i class="fa-solid fa-lock"></i>
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" name="password" class="campos" placeholder="Ingresa tu contraseña" required>
+            </div>
+            
+            <input type="submit" value="Iniciar Sesión">
+          </form>
+          
+          <p>¿No tienes una cuenta? <a href="registrosesionLS.html">Regístrate aquí</a></p>
         </div>
       </div>
     </section>
@@ -162,86 +184,76 @@
   <footer id="footer">
     <a href="https://chat.whatsapp.com/KWg4GAgxnV47D0sbwNWuGa?text=Hola,Deseo%20solicitar%20una%20canción%20" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
 
-    <div class="footer-top">
-
-      <div class="container">
-
-        <div class="row  justify-content-center">
-          <div class="col-lg-6">
-            <h3>Performance</h3>
-            <p>Recibe las ultimas noticias.</p>
-          </div>
-        </div>
-
-        <div class="row footer-newsletter justify-content-center">
-          <div class="col-lg-6">
-              <!--
-            <form action="" method="post">
-              <input type="email" name="email" placeholder="Ingrese su Email"><input type="submit" value="Suscribir">
-            </form>
-              -->
-          </div>
-        </div>
-
-        <div class="social-links">
-          <a href="https://www.facebook.com/performanceradio" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.instagram.com/performanceradio/" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
-          <a href="https://twitter.com/performanceradi" class="twitter" target="_blank"><i class="bx bxl-twitter"></i></a>
-          <a href="https://www.youtube.com/channel/UC_ir-CuCJm7gMEeXdegjq2Q" class="youtube" target="_blank"><i class="bx bxl-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container footer-bottom clearfix">
+    <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Performance Radio</span></strong>. All Rights Reserved 2022
+        &copy; Copyright <strong><span>Performance Radio</span></strong>. Todos los derechos reservados.
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/valera-free-bootstrap-theme/ -->
-        Designed by <a href="#">Unicornios Espaciales</a>
+        Diseñado con <i class="fa fa-heart" style="color: #ff6b6b;"></i> por <a href="#">Performance Radio Team</a>
       </div>
     </div>
   </footer><!-- End Footer -->
 
-  <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/login.js"></script>
+  <!-- Scripts esenciales -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
-  <!-- Tu código JavaScript personalizado -->
-  <!-- <script>
-    // Ejemplo de JavaScript para mejorar el formulario
+  <!-- Scripts para la barra de reproducción -->
+  <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script defer src="assets/js/jquery.js"></script>
+  <script defer src="assets/js/playbtn.js"></script>
+  <script defer src="assets/js/waveform.js"></script>
+  <script defer src="assets/js/playvolume.js"></script>
+  <script defer src="assets/js/playimagen-enhanced.js"></script>
+  <script defer src="assets/js/unified-stream-config.js"></script>
+  <script defer src="assets/js/ultra-cache.js"></script>
+  <script defer src="assets/js/ultra-fast-processor.js"></script>
+  <script defer src="assets/js/locutor-modern.js"></script>
+  <script defer src="assets/js/image-search-config.js"></script>
+  <script defer src="assets/js/image-fallback-system.js"></script>
+  <script defer src="assets/js/image-search-worker.js"></script>
+  <script defer src="assets/js/image-preloader.js"></script>
+  <script defer src="assets/js/locutorInfo.js"></script>
+  <script defer src="assets/js/playerTextClamp.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.1/jquery.jcarousel.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://cp9.serverse.com/system/streaminfo.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script defer src="assets/js/image-search-demo.js"></script>
+  
+  <!-- Script para manejar el menú móvil -->
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Agregar clases de Bootstrap para estilizar los elementos del formulario
-      const form = document.querySelector('.formularioiniciosesion form');
-      form.classList.add('needs-validation', 'was-validated');
-
-      // Validar el formulario antes de enviarlo
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navbar = document.querySelector('.navbar ul');
+      
+      if (mobileNavToggle && navbar) {
+        mobileNavToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          navbar.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!navbar.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+            navbar.classList.remove('active');
+          }
+        });
+      }
+      
+      // Forzar centrado de iconos al cargar la página
+      const icons = document.querySelectorAll('.form-group i');
+      icons.forEach(function(icon) {
+        icon.style.display = 'flex';
+        icon.style.alignItems = 'center';
+        icon.style.justifyContent = 'center';
+        icon.style.alignContent = 'center';
+        icon.style.textAlign = 'center';
+        icon.style.verticalAlign = 'middle';
+        icon.style.lineHeight = '1';
       });
     });
-  </script> -->
+  </script>
 </body>
 
 </html>

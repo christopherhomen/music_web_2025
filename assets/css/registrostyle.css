@@ -1,56 +1,326 @@
-main{
-    background-image: url(https://i.ibb.co/n84CKBF/monkey-3507317-2-1-1.jpg);
-    background-size:contain;
-    background-size: cover;
-    background-position: center;
+/* ==========================================
+   APPLE-STYLE REGISTRATION PAGE
+   Minimalista, Premium, Elegante
+   ========================================== */
+
+:root {
+  --apple-bg: #f5f5f7;
+  --apple-card: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-text-secondary: #86868b;
+  --apple-accent: #007aff;
+  --apple-accent-hover: #0056cc;
+  --apple-border: #d2d2d7;
+  --apple-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --apple-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+  --apple-radius: 12px;
+  --apple-radius-large: 20px;
+  --apple-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-#imagenlogo{
-    width: 400px;
-    height:37px
+/* Fondo minimalista estilo Apple */
+main {
+  background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%) !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-.formularioiniciosesion{
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    float: right;
-    width: 400px;
-    min-height:500px;
-    color: #fff;
-    position: relative;
-    margin-bottom: 20px;
+/* Contenedor principal centrado */
+.inner-page {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh !important;
+  padding: 40px 20px !important;
+  position: relative !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
+/* Logo minimalista */
+#logo-registro {
+  text-align: center;
+  margin-bottom: 40px;
+}
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+#imagenlogo {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  transition: var(--apple-transition);
+}
+
+#imagenlogo:hover {
+  transform: scale(1.02);
+}
+
+/* Formulario estilo Apple */
+.formularioiniciosesion {
+  background: var(--apple-card) !important;
+  border-radius: var(--apple-radius-large) !important;
+  box-shadow: var(--apple-shadow) !important;
+  padding: 48px 40px !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  border: 1px solid var(--apple-border) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  transition: var(--apple-transition) !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.formularioiniciosesion:hover {
+  box-shadow: var(--apple-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Título del formulario */
+#encabezado-registro {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--apple-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+}
+
+/* Subtítulo */
+.formularioiniciosesion p {
+  text-align: center;
+  color: var(--apple-text-secondary);
+  font-size: 17px;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+/* Formulario */
+#signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Grupos de campos con iconos */
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Iconos minimalistas */
+.form-group i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--apple-text-secondary);
+  font-size: 16px;
+  z-index: 2;
+  transition: var(--apple-transition);
+}
+
+/* Labels elegantes */
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--apple-text);
+  margin-bottom: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+}
+
+/* Campos de entrada estilo Apple */
+.campos {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px 0 48px;
+  border: 2px solid var(--apple-border);
+  border-radius: var(--apple-radius);
+  background: var(--apple-card);
+  color: var(--apple-text);
+  font-size: 16px;
+  font-weight: 400;
+  transition: var(--apple-transition);
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+}
+
+.campos:focus {
+  outline: none;
+  border-color: var(--apple-accent);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.campos:focus + i {
+  color: var(--apple-accent);
+}
+
+.campos::placeholder {
+  color: var(--apple-text-secondary);
+  font-weight: 400;
+}
+
+/* Botón de envío estilo Apple */
+input[type="submit"] {
+  width: 100%;
+  height: 56px;
+  background: var(--apple-accent);
+  color: white;
   border: none;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  height: 30px;
+  border-radius: var(--apple-radius);
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--apple-transition);
+  margin-top: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  letter-spacing: -0.2px;
 }
 
-input[type="number"] {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    height: 30px;
+input[type="submit"]:hover {
+  background: var(--apple-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
 }
 
-#encabezado-registro{
-    text-align: center;
-    font-weight: bold;
-    color: #fff;
+input[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(0, 122, 255, 0.2);
+}
+
+/* Enlace de login */
+.formularioiniciosesion > p {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 15px;
+  color: var(--apple-text-secondary);
+}
+
+.formularioiniciosesion > p a {
+  color: var(--apple-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--apple-transition);
+}
+
+.formularioiniciosesion > p a:hover {
+  color: var(--apple-accent-hover);
+  text-decoration: underline;
+}
+
+/* Animaciones sutiles */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formularioiniciosesion {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inner-page {
+    padding: 20px 16px;
+  }
+  
+  .formularioiniciosesion {
+    padding: 32px 24px;
+    max-width: 100%;
+  }
+  
+  #encabezado-registro {
+    font-size: 28px;
+  }
+  
+  #imagenlogo {
+    width: 160px;
+  }
+  
+  .campos {
+    height: 52px;
+    font-size: 16px;
+  }
+  
+  input[type="submit"] {
+    height: 52px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formularioiniciosesion {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  
+  #encabezado-registro {
+    font-size: 24px;
+  }
+  
+  #imagenlogo {
+    width: 140px;
+  }
+}
+
+/* Estados de validación */
+.campos.error {
+  border-color: #ff3b30;
+  box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.1);
+}
+
+.campos.success {
+  border-color: #34c759;
+  box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.1);
+}
+
+/* Efecto de carga en el botón */
+input[type="submit"]:disabled {
+  background: var(--apple-text-secondary);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mejoras de accesibilidad */
+.campos:focus-visible {
+  outline: 2px solid var(--apple-accent);
+  outline-offset: 2px;
+}
+
+/* Eliminar el texto "ANGLKDS" */
+.inner-page > div:first-of-type {
+  display: none !important;
+}
+
+/* Forzar visibilidad de todos los elementos críticos */
+body, html, main, .inner-page, .container, .formularioiniciosesion {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Asegurar que el body tenga el fondo correcto */
+body {
+  background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
 }
 

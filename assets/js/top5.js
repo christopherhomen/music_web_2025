@@ -68,10 +68,10 @@
                 
                 if (container) {
                     if (bgElement) {
-                        // Para index_seo_perf.html
+                        // Para index.html (archivo principal)
                         bgElement.style.backgroundImage = `url(${backgroundImage})`;
                     } else {
-                        // Para index.html
+                        // Para otros archivos HTML
                         container.style.backgroundImage = `url(${backgroundImage})`;
                     }
                 }
@@ -80,7 +80,7 @@
             canciones.forEach((cancion, index) => {
                 const track = cancion.track;
 
-                // Crear elemento li para index_seo_perf.html o div para index.html
+                // Crear elemento li para index.html (archivo principal) o div para otros archivos
                 const songItem = document.createElement(listadoElement.tagName === 'OL' ? 'li' : 'div');
                 songItem.className = 'song-item';
                 songItem.setAttribute('data-position', index + 1); // Agregar número de posición
