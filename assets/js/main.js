@@ -307,6 +307,12 @@
    * Scrool with ofset on links with a class name .scrollto
    */
   on('click', '.scrollto', function(e) {
+    // Excluir enlaces del navbar móvil para evitar conflictos
+    if (this.closest('.mobile-navbar')) {
+      console.log('🚫 Enlace del navbar móvil detectado, ignorando main.js scrollto');
+      return;
+    }
+    
     if (select(this.hash)) {
       e.preventDefault()
 
