@@ -1,0 +1,192 @@
+/* Banner horizontal full-width estilo promo */
+.banner-horizontal {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 1200px) 1fr;
+  /* Fondo mejorado con capas: conic glow + radiales + degradado base */
+  background:
+    conic-gradient(from 210deg at 85% 15%, rgba(124,140,255,.18), transparent 25%),
+    radial-gradient(1200px 600px at 70% 40%, rgba(124, 140, 255, 0.18), transparent 60%),
+    radial-gradient(800px 400px at 30% 60%, rgba(64, 78, 237, 0.22), transparent 60%),
+    linear-gradient(135deg, #0a0c12 0%, #101225 100%);
+  color: #EDEFF2;
+  overflow: hidden;
+  min-height: 168px; /* altura tipo banner */
+}
+
+.banner-horizontal > .container {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 240px 1fr; /* más compacto para banner */
+  gap: clamp(12px, 2.2vw, 24px);
+  align-items: center;
+  padding: clamp(12px, 2.5vw, 24px);
+}
+
+/* Mascota/ilustración */
+.banner-horizontal .pelipup {
+  width: 100%;
+  max-width: 220px; /* reduce altura visual del banner */
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
+  transform: translateY(0);
+}
+
+/* Texto y contenido */
+.banner-horizontal .text {
+  display: grid;
+  /* Dos columnas: contenido + acciones para distribución tipo banner */
+  grid-template-columns: 1fr auto;
+  gap: clamp(8px, 1.6vw, 16px);
+  align-items: center;
+  align-content: center;
+}
+
+.banner-horizontal .heading {
+  font-size: clamp(22px, 3.2vw, 40px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  /* Título ocupa todo el ancho */
+  grid-column: 1 / -1;
+}
+
+.banner-horizontal .subheading {
+  font-size: clamp(16px, 2.2vw, 22px);
+  color: #B9BEC8;
+}
+
+/* Logos fila */
+.banner-horizontal .logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 2vw, 18px);
+  align-items: center;
+  /* logos a la izquierda en desktop */
+  grid-column: 1;
+}
+
+/* Contenedor de acciones (CTA + WhatsApp) */
+.banner-horizontal .text > div {
+  display: flex;
+  align-items: center; /* centra verticalmente el botón y la línea wa */
+  gap: 12px;
+  flex-wrap: wrap;
+  /* bloque de acciones (CTA + WhatsApp) a la derecha en desktop */
+  grid-column: 2;
+  justify-self: end;
+}
+
+.banner-horizontal .logos img {
+  height: clamp(24px, 3.2vw, 40px); /* logos compactos tipo banner */
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+  opacity: .95;
+}
+
+/* CTA grande */
+.banner-horizontal .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  /* Netflix red sólido */
+  background: #e50914;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: clamp(14px, 1.8vw, 16px);
+  text-decoration: none;
+  box-shadow: 0 10px 26px rgba(229, 9, 20, 0.35), 0 4px 12px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.06) inset;
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  text-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
+
+.banner-horizontal .cta:hover {
+  transform: translateY(-2px) scale(1.01);
+  background: #b20710;
+  box-shadow: 0 18px 38px rgba(229, 9, 20, 0.5), 0 8px 18px rgba(0,0,0,.45);
+  filter: saturate(1.05);
+}
+
+.banner-horizontal .cta .spark {
+  display: inline-block;
+  width: 12px; height: 12px;
+  background: radial-gradient(circle at 50% 50%, #ffd27a 0 40%, transparent 41%);
+  border-radius: 50%;
+  box-shadow: 0 0 14px 6px rgba(255, 210, 122, .6);
+}
+
+/* Línea de WhatsApp */
+.banner-horizontal .wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #B9F5C8;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 2px;
+  font-size: 14px;
+}
+
+.banner-horizontal .wa .icon {
+  width: 22px; height: 22px;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.35));
+}
+
+/* Responsive: apilar y centrar */
+@media (max-width: 992px) {
+  .banner-horizontal > .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .banner-horizontal .pelipup {
+    margin: 0 auto;
+    max-width: 200px;
+  }
+  .banner-horizontal .text {
+    grid-template-columns: 1fr; /* apilar en móvil */
+  }
+  .banner-horizontal .logos {
+    justify-content: center;
+    grid-column: 1;
+  }
+  .banner-horizontal .text > div {
+    grid-column: 1;
+    justify-self: center;
+  }
+}
+
+/* Bordes decorativos sutiles */
+.banner-horizontal::before,
+.banner-horizontal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.banner-horizontal::before {
+  /* brillo animado sutil */
+  background:
+    radial-gradient(600px 220px at 15% 130%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(900px 260px at 70% -20%, rgba(86, 110, 255, .18), transparent 60%);
+  mix-blend-mode: screen;
+  animation: floatGlow 12s ease-in-out infinite alternate;
+}
+
+.banner-horizontal::after {
+  /* viñeta + textura ligera de líneas */
+  background:
+    radial-gradient(120% 120% at 50% 50%, transparent 60%, rgba(0,0,0,.35) 100%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.03) 0 1px,
+      transparent 1px 12px
+    );
+}
+
+@keyframes floatGlow {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(0,-6px,0) scale(1.02); }
+}
