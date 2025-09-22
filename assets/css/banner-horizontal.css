@@ -57,17 +57,10 @@
 
 .banner-horizontal .logos img {
   height: clamp(22px, 3vw, 32px);
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+  /* Forzar iconos blancos (SVG simple-icons) sobre fondo oscuro */
+  filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.45));
   opacity: .98;
 }
-
-/* Tintado por marca para combinar con el banner oscuro */
-.banner-horizontal .logos .brand { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
-.banner-horizontal .logos .brand.netflix { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) saturate(1.2); }
-.banner-horizontal .logos .brand.primevideo { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) hue-rotate(180deg) saturate(1.2); }
-.banner-horizontal .logos .brand.max { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) hue-rotate(240deg) saturate(1.1); }
-.banner-horizontal .logos .brand.youtubepremium { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) saturate(1.2); }
-.banner-horizontal .logos .brand.disneyplus { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)) hue-rotate(210deg) saturate(1.1); }
 
 
 /* CTA grande */
