@@ -191,6 +191,15 @@ class MobileNavbar {
             // Agregar nuevo event listener
             link.addEventListener('click', (e) => {
                 console.log('🎯 Event listener ejecutado para enlace', index + 1);
+                console.log('🔍 Detalles del clic:', {
+                    target: e.target,
+                    currentTarget: e.currentTarget,
+                    linkElement: link,
+                    linkText: link.querySelector('span')?.textContent || 'Sin texto',
+                    href: link.getAttribute('href'),
+                    dataSection: link.getAttribute('data-section')
+                });
+                
                 e.preventDefault();
                 e.stopPropagation(); // Prevenir que main.js interfiera
                 
@@ -199,10 +208,24 @@ class MobileNavbar {
                     linkText: link.querySelector('span')?.textContent || 'Sin texto',
                     targetId: targetId,
                     href: link.getAttribute('href'),
-                    sectionExists: !!document.getElementById(targetId)
+                    sectionExists: !!document.getElementById(targetId),
+                    sectionElement: document.getElementById(targetId)
                 });
-                this.scrollToSection(targetId);
+                
+                // Verificar que el navbar esté abierto antes de hacer scroll
+                if (!this.isOpen) {
+                    console.log('⚠️ Navbar no está abierto, no se puede hacer scroll');
+                    return;
+                }
+                
+                console.log('📱 Cerrando navbar antes del scroll...');
                 this.closeNavbar();
+                
+                // Pequeño delay para que el navbar se cierre antes del scroll
+                setTimeout(() => {
+                    console.log('🎯 Iniciando scroll después de cerrar navbar...');
+                    this.scrollToSection(targetId);
+                }, 200);
             });
             
             console.log(`  ✅ Event listener agregado para: ${link.querySelector('span')?.textContent} -> ${link.getAttribute('href')}`);
@@ -423,6 +446,11 @@ class MobileNavbar {
      */
     scrollToSection(sectionId) {
         console.log('🎯 scrollToSection llamado con:', sectionId);
+        console.log('🔍 Estado del navbar:', {
+            isOpen: this.isOpen,
+            navbarExists: !!this.navbar,
+            windowWidth: window.innerWidth
+        });
         
         try {
             const section = document.getElementById(sectionId);
@@ -430,9 +458,20 @@ class MobileNavbar {
             
             if (!section) {
                 console.error(`❌ Sección con ID "${sectionId}" no encontrada`);
-                console.log('🔍 Secciones disponibles:', Array.from(document.querySelectorAll('section[id]')).map(s => s.id));
+                const allSections = Array.from(document.querySelectorAll('section[id]'));
+                console.log('🔍 Secciones disponibles:', allSections.map(s => ({ id: s.id, visible: s.offsetParent !== null })));
                 return;
             }
+
+            // Verificar si la sección es visible
+            const rect = section.getBoundingClientRect();
+            console.log('📐 Rectángulo de la sección:', {
+                top: rect.top,
+                left: rect.left,
+                width: rect.width,
+                height: rect.height,
+                visible: rect.offsetParent !== null
+            });
 
             // Calcular offset de forma más simple y segura
             let offset = 100; // Offset base
@@ -460,23 +499,31 @@ class MobileNavbar {
             console.log('📐 Posiciones:', {
                 sectionTop: sectionTop,
                 targetPosition: targetPosition,
-                currentScrollTop: window.pageYOffset
+                currentScrollTop: window.pageYOffset,
+                documentHeight: document.documentElement.scrollHeight
             });
             
             // Actualizar enlace activo inmediatamente
             this.updateActiveLink(sectionId);
             
             // Scroll suave con timeout para evitar conflictos
+            console.log('⏳ Iniciando scroll en 100ms...');
             setTimeout(() => {
+                console.log('🚀 Ejecutando scroll hacia:', targetPosition);
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-                console.log('✅ Scroll completado hacia:', targetPosition);
+                
+                // Verificar después del scroll
+                setTimeout(() => {
+                    console.log('✅ Scroll completado. Posición actual:', window.pageYOffset);
+                }, 1000);
             }, 100);
             
         } catch (error) {
             console.error('❌ Error en scrollToSection:', error);
+            console.error('❌ Stack trace:', error.stack);
         }
     }
 
