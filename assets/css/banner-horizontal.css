@@ -1,0 +1,137 @@
+/* Banner horizontal full-width estilo promo */
+.banner-horizontal {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 1200px) 1fr;
+  background: radial-gradient(1200px 600px at 70% 40%, rgba(124, 140, 255, 0.18), transparent 60%),
+              radial-gradient(800px 400px at 30% 60%, rgba(64, 78, 237, 0.22), transparent 60%),
+              linear-gradient(135deg, #0a0c12 0%, #101225 100%);
+  color: #EDEFF2;
+  overflow: hidden;
+}
+
+.banner-horizontal > .container {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: clamp(16px, 4vw, 40px);
+  align-items: center;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+/* Mascota/ilustración */
+.banner-horizontal .pelipup {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
+  transform: translateY(0);
+}
+
+/* Texto y contenido */
+.banner-horizontal .text {
+  display: grid;
+  gap: clamp(12px, 2.2vw, 20px);
+}
+
+.banner-horizontal .heading {
+  font-size: clamp(28px, 4.2vw, 56px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.banner-horizontal .subheading {
+  font-size: clamp(16px, 2.2vw, 22px);
+  color: #B9BEC8;
+}
+
+/* Logos fila */
+.banner-horizontal .logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 2vw, 18px);
+  align-items: center;
+}
+
+.banner-horizontal .logos img {
+  height: clamp(22px, 3vw, 32px);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+  opacity: .95;
+}
+
+/* CTA grande */
+.banner-horizontal .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(180deg, #ff6a3a, #e63d2e);
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: clamp(16px, 2.4vw, 20px);
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(230, 61, 46, 0.45), 0 3px 10px rgba(0,0,0,.35);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.banner-horizontal .cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(230, 61, 46, 0.55), 0 6px 16px rgba(0,0,0,.4);
+  filter: saturate(1.05);
+}
+
+.banner-horizontal .cta .spark {
+  display: inline-block;
+  width: 12px; height: 12px;
+  background: radial-gradient(circle at 50% 50%, #ffd27a 0 40%, transparent 41%);
+  border-radius: 50%;
+  box-shadow: 0 0 14px 6px rgba(255, 210, 122, .6);
+}
+
+/* Línea de WhatsApp */
+.banner-horizontal .wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #B9F5C8;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.banner-horizontal .wa .icon {
+  width: 28px; height: 28px;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.35));
+}
+
+/* Responsive: apilar y centrar */
+@media (max-width: 992px) {
+  .banner-horizontal > .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .banner-horizontal .pelipup {
+    margin: 0 auto;
+    max-width: 280px;
+  }
+  .banner-horizontal .logos {
+    justify-content: center;
+  }
+}
+
+/* Bordes decorativos sutiles */
+.banner-horizontal::before,
+.banner-horizontal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.banner-horizontal::before {
+  background: radial-gradient(800px 200px at 50% 100%, rgba(255,255,255,.06), transparent 60%);
+  mix-blend-mode: screen;
+}

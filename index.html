@@ -76,7 +76,7 @@
         <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
         <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
         <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-        <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!--<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">-->
 
     <!-- ==========================================
          CUSTOM CSS STYLES
@@ -107,6 +107,21 @@
           #header .container-fluid{max-width:var(--maxw);padding:0 var(--pad)}
           #header .navbar a{color:var(--txt);text-shadow:0 1px 2px rgba(0,0,0,.45)}
           #header .navbar a:hover,#header .navbar .active{color:var(--txt);background:var(--glass);border-radius:10px}
+          
+          /* Mobile navbar toggle */
+          .mobile-nav-toggle{display:none;background:none;border:none;color:var(--txt);font-size:24px;cursor:pointer;padding:8px;border-radius:8px;transition:all 0.3s ease;position:relative;z-index:1003}
+          .mobile-nav-toggle:hover{color:var(--accent);background:var(--glass);transform:scale(1.05)}
+          .mobile-nav-toggle.active{color:var(--accent);background:var(--glass)}
+          
+          @media (min-width:769px){
+            header#header{margin-top:15vh}
+          }
+          @media (max-width:768px){
+            .mobile-nav-toggle{display:flex;align-items:center;justify-content:center}
+            #header .navbar ul{display:none}
+            .header-social-links{display:none}
+            header#header{margin-top:0}
+          }
           /* Section shells */
           main{display:block}
           .section{padding:clamp(32px,6vw,72px) var(--pad)}
@@ -184,6 +199,10 @@
         <link href="assets/css/floating-buttons.css" rel="stylesheet">
         <link href="assets/css/testimonials-premium.css" rel="stylesheet">
         <link href="assets/css/locutor-modern.css" rel="stylesheet">
+        <!-- Mobile Navbar CSS -->
+        <link href="assets/css/mobile-navbar.css" rel="stylesheet">
+        <!-- Banner Horizontal Promo CSS -->
+        <link href="assets/css/banner-horizontal.css" rel="stylesheet">
 
         <!-- Metadatos SEO/OG/Twitter actualizados -->
         <meta property="og:site_name" content="Performance Radio" />
@@ -294,10 +313,10 @@
             <!-- Main Navigation -->
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+                <li><a class="nav-link scrollto" href="#hero">Inicio</a></li>
                 <li><a class="nav-link scrollto" href="#about">Acerca de</a></li>
                 <li><a class="nav-link scrollto" href="#services">Servicios</a></li>
-                <li><a class="nav-link scrollto" href="#team">Nuestro Equipo</a></li>
+                <li><a class="nav-link scrollto" href="#locutores">Locutores</a></li>
                 <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
                 <li class="dropdown">
                     <a href="iniciosesionLS.html">
@@ -802,6 +821,48 @@
         </div>
     </div>
 </div>
+
+<section class="banner-horizontal">
+  <div class="container">
+    <img src="assets/img/pelipup.png" alt="Pelipup" class="pelipup">
+    <div class="text">
+      <h2 class="heading">Activa aquí tus plataformas favoritas</h2>
+      <div class="logos">
+        <img src="assets/img/logo/brands/netflix.svg" alt="Netflix" onerror="this.style.display='none'">
+        <img src="assets/img/logo/brands/disney.svg" alt="Disney+" onerror="this.style.display='none'">
+        <img src="assets/img/logo/brands/max.svg" alt="Max" onerror="this.style.display='none'">
+        <img src="assets/img/logo/brands/primevideo.svg" alt="Prime Video" onerror="this.style.display='none'">
+        <img src="assets/img/logo/brands/youtube.svg" alt="YouTube Premium" onerror="this.style.display='none'">
+      </div>
+      <div>
+        <a href="https://wa.me/573126725787" class="cta"><span class="spark"></span> Click Aquí</a>
+      </div>
+      <a class="wa" href="https://wa.me/573126725787" target="_blank" rel="noopener">
+        <img class="icon" src="assets/img/logo/whatsapp.svg" alt="WhatsApp">
+        Escríbenos al 3126725787
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Eliminado CSS inline previo del banner - ahora está en assets/css/banner-horizontal.css -->
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .btn {
+    background: #FF004C;
+    padding: 10px 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: 0.3s;
+  }
+  .btn:hover {
+    background: #ff3369;
+  }
+  </style>
+  
 </div>
 
         <!-- ==========================================
@@ -1652,7 +1713,7 @@
     <!-- ==========================================
          CHRIS HOMEN - DISEÑO MODERNO
          ========================================== -->
-    <section id="chris-homen-modern" class="section-bg" style="padding: 60px 0;">
+    <section id="locutores" class="section-bg" style="padding: 60px 0;">
         <div class="container">
             <div class="section-title">
                 <h2>Nuestros Locutores</h2>
@@ -3359,7 +3420,7 @@
                                 <li><a href="#hero">Inicio</a></li>
                                 <li><a href="#about">Acerca De</a></li>
                                 <li><a href="#services">Servicios</a></li>
-                                <li><a href="#team">Locutores</a></li>
+                                <li><a href="#locutores">Locutores</a></li>
                                 <li><a href="#contact">Contacto</a></li>
                             </ul>
                         </div>
@@ -3477,6 +3538,8 @@
         <script defer src="assets/js/waveform.js"></script>
         <script defer src="assets/js/whatsapp.js"></script>
         <script defer src="assets/js/axios.min.js"></script>
+        <!-- Mobile Navbar Script -->
+        <script defer src="assets/js/mobile-navbar.js"></script>
 
     <!-- ==========================================
          REDESIGN SCRIPTS (MODULE)
