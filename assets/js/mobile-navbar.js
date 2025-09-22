@@ -459,19 +459,9 @@ class MobileNavbar {
             if (!section) {
                 console.error(`❌ Sección con ID "${sectionId}" no encontrada`);
                 const allSections = Array.from(document.querySelectorAll('section[id]'));
-                console.log('🔍 Secciones disponibles:', allSections.map(s => ({ id: s.id, visible: s.offsetParent !== null })));
+                console.log('🔍 Secciones disponibles:', allSections.map(s => ({ id: s.id })));
                 return;
             }
-
-            // Verificar si la sección es visible
-            const rect = section.getBoundingClientRect();
-            console.log('📐 Rectángulo de la sección:', {
-                top: rect.top,
-                left: rect.left,
-                width: rect.width,
-                height: rect.height,
-                visible: rect.offsetParent !== null
-            });
 
             // Calcular offset de forma más simple y segura
             let offset = 100; // Offset base
@@ -496,10 +486,11 @@ class MobileNavbar {
             const sectionTop = section.offsetTop;
             const targetPosition = Math.max(0, sectionTop - offset);
             
+            const startY = window.pageYOffset;
             console.log('📐 Posiciones:', {
                 sectionTop: sectionTop,
                 targetPosition: targetPosition,
-                currentScrollTop: window.pageYOffset,
+                currentScrollTop: startY,
                 documentHeight: document.documentElement.scrollHeight
             });
             
@@ -515,10 +506,17 @@ class MobileNavbar {
                     behavior: 'smooth'
                 });
                 
-                // Verificar después del scroll
+                // Verificar después del scroll y aplicar fallback si no se movió
                 setTimeout(() => {
-                    console.log('✅ Scroll completado. Posición actual:', window.pageYOffset);
-                }, 1000);
+                    const afterY = window.pageYOffset;
+                    const moved = Math.abs(afterY - targetPosition) < 8;
+                    console.log('✅ Post-scroll:', { afterY, expected: targetPosition, moved });
+                    if (!moved) {
+                        console.warn('⚠️ Scroll programático no surtió efecto, aplicando fallback con hash');
+                        // Forzar navegación por hash (respeta scroll-margin-top si está definido por CSS)
+                        window.location.hash = sectionId;
+                    }
+                }, 900);
             }, 100);
             
         } catch (error) {
