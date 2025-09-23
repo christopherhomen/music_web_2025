@@ -1,1 +1,20 @@
-:root{--accent:#7C8CFF} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+:root{
+  --accent:#7C8CFF;
+  --bg:#0a0c12;
+  --card:#101225;
+  --text:#EDEFF2;
+  --muted:#B9BEC8;
+}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+}
+
+main section{padding:24px 16px}
+h1,h2,h3{margin:0 0 8px}
+p{margin:8px 0 0; color:var(--muted)}
+a{color:var(--text)}

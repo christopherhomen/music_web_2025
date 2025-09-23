@@ -1,0 +1,37 @@
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(16,18,37,.75);
+  backdrop-filter: saturate(120%) blur(12px);
+  -webkit-backdrop-filter: saturate(120%) blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.logo{
+  color: #EDEFF2;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.mobile-nav-toggle{
+  appearance: none;
+  background: none;
+  border: 0;
+  color: #EDEFF2;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.mobile-nav-toggle:hover{
+  background: rgba(255,255,255,.06);
+}
+
+@media (min-width: 992px){
+  .mobile-nav-toggle{display:none}
+}
+

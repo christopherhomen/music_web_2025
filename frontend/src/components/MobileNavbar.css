@@ -1,0 +1,19 @@
+.mobile-nav{position:fixed; inset:0; z-index:1400; pointer-events:none;}
+.mobile-nav.open{pointer-events:auto}
+.mobile-nav__backdrop{position:absolute; inset:0; background:rgba(0,0,0,.45); opacity:0; transition:opacity .2s ease}
+.mobile-nav.open .mobile-nav__backdrop{opacity:1}
+.mobile-nav__panel{position:absolute; top:0; right:0; height:100%; width:82%; max-width:360px; background:rgba(16,18,37,.95); backdrop-filter:saturate(120%) blur(8px); -webkit-backdrop-filter:saturate(120%) blur(8px); transform:translateX(100%); transition:transform .2s ease}
+.mobile-nav.open .mobile-nav__panel{transform:translateX(0)}
+.mobile-nav__header{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.08); color:#EDEFF2}
+.mobile-nav__close{appearance:none; background:none; border:0; color:#EDEFF2; font-size:24px; line-height:1; padding:6px 8px; border-radius:8px}
+.mobile-nav__close:hover{background:rgba(255,255,255,.06)}
+.mobile-nav__list{list-style:none; margin:0; padding:8px 0}
+.mobile-nav__list li{margin:0}
+.mobile-nav__list a{display:block; padding:14px 18px; color:#EDEFF2; text-decoration:none}
+.mobile-nav__list a:hover{background:rgba(255,255,255,.06)}
+
+@media (min-width: 992px){
+  .mobile-nav{display:none}
+}
+
+
